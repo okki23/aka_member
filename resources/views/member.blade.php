@@ -33,94 +33,15 @@
                     <table id="example">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Status</th>
+                                <th>#</th>
+                                <th>Barcode</th>
+                                <th>Member Name</th>
+                                <th>Email</th> 
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </tfoot>
+                      
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                                <td><div class="badge bg-primary text-white rounded-pill">Full-time</div></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                                <td><div class="badge bg-warning rounded-pill">Pending</div></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                                <td><div class="badge bg-secondary text-white rounded-pill">Part-time</div></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012/03/29</td>
-                                <td>$433,060</td>
-                                <td><div class="badge bg-info rounded-pill">Contract</div></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>2008/11/28</td>
-                                <td>$162,700</td>
-                                <td><div class="badge bg-primary text-white rounded-pill">Full-time</div></td>
-                                <td>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark me-2"><i data-feather="more-vertical"></i></button>
-                                    <button class="btn btn-datatable btn-icon btn-transparent-dark"><i data-feather="trash-2"></i></button>
-                                </td>
-                            </tr>
                             
                         </tbody>
                     </table>
@@ -141,11 +62,13 @@
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" id="my-form">
                         @csrf
-                        <input type="text" name="id" id="id">
+                        <input type="hidden" name="id" id="id">
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Barcode</label>
-                            <input class="form-control" id="barcode" name="barcode" type="text"  >
+                            <input class="form-control" id="barcode" readonly="readonly" name="barcode" type="text"  >
+
+                            {{-- <div class="mb-3">{!! DNS1D::getBarcodeHTML('4445645656', 'PHARMA') !!}</div> --}}
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
@@ -153,6 +76,7 @@
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Title</label>
                                 <select class="form-control" id="title" name="title">
+                                    <option value="" selected="selected">--Select--</option>
                                     <option value="1">Mr</option>
                                     <option value="2">Mrs</option> 
                                 </select>
@@ -195,7 +119,8 @@
                                 <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="inputPhone">Gender</label>
-                                    <select class="form-control" id="exampleFormControlSelect1" name="gender" id="gender">
+                                    <select class="form-control" name="gender" id="gender">
+                                        <option value="" selected="selected">--Select--</option>
                                         <option value="1">Pria</option>
                                         <option value="2">Wanita</option> 
                                     </select>
@@ -222,9 +147,10 @@
                         <!-- Form Group (username)-->
                         
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Photo</label>
+                            <label class="small mb-1" for="inputUsername">Photo</label> 
+                            <div id="pict_view"></div>
                             <input type="file" name="foto" id="foto" class="form-control">
-                            {{-- <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"> --}}
+                           
                         </div> 
                     </form>
                 </div>
@@ -249,7 +175,23 @@
 </main>
 <script>
     $(document).ready(function () {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('member_list') }}",
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'barcode', name: 'barcode'},
+                {data: 'member_name', name: 'member_name'},
+                {data: 'email', name: 'email'}, 
+                {
+                    data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true
+                },
+            ]
+        });
     }); 
 
     $.ajaxSetup({
@@ -259,92 +201,103 @@
     });
 
     function AddData(){
-        var datapos = $("#formmember").serialize(); 
+        clearinput();
+        $.get('{{ route('member_add_form') }}',function(result){
+            console.log(result);
+            $("#barcode").val(result);
+        });
         $('#myModal').modal('show');  
     }
 
     function SimpanData(){
-        
-        // var barcode = $("#barcode").val();
-        // var title  = $("#title").val();
-        // var member_name = $("#member_name").val();  
-        // var id_number = $("#id_number").val();
-        // var dob  = $("#dob").val();
-        // var pob = $("#pob").val();  
-        // var phone = $("#phone").val();
-        // var gender  = $("#gender").val();
-        // var email = $("#email").val();
-        // var emer_contact = $("#phone").val();
-        // var referal  = $("#gender").val();
-        // var foto = $("#email").val();  
-        // var formData = new FormData($('#formmember')[0])
-        // $.ajax({
-        //     url:"{{ route('member_save') }}",
-        //     type:"POST",
-        //     data:formData,
-        //     success:function(result){
-        //         console.log(result);
-        //     }
-        // });
-
-        // Get form
-
-        var form = $('#my-form')[0];
-
          
-
-        // FormData object 
-
-        var data = new FormData(form);
-
-
-
-        // If you want to add an extra field for the FormData
-
-        data.append("CustomField", "This is some extra data, testing");
-
- 
-
-        $.ajax({
-
-            type: "POST",
-
-            enctype: 'multipart/form-data',
-
-            url:"{{ route('member_save') }}",
-
-            data: data,
-
-            processData: false,
-
-            contentType: false,
-
-            cache: false,
-
-            timeout: 800000,
-
-            success: function (data) {
-
-                // $("#output").text(data);
-
-                console.log("SUCCESS : ", data);
-
-                // $("#btnSubmit").prop("disabled", false);
-
+        var form = $('#my-form')[0]; 
+        var data = new FormData(form);  
+        $.ajax({ 
+            type: "POST", 
+            enctype: 'multipart/form-data', 
+            url:"{{ route('member_save') }}", 
+            data: data, 
+            processData: false, 
+            contentType: false, 
+            cache: false, 
+            timeout: 800000, 
+            success: function (data) { 
+                console.log("SUCCESS : ", data); 
+                $('#myModal').modal('hide'); 
+                $('#example').DataTable().ajax.reload()
+                clearinput();
             },
 
-            error: function (e) {
-
-                // $("#output").text(e.responseText);
-
-                console.log("ERROR : ", e);
-
-                // $("#btnSubmit").prop("disabled", false);
-
-            }
-
-        });
-
+            error: function (e) { 
+                console.log("ERROR : ", e);  
+                $('#myModal').modal('hide'); 
+                $('#example').DataTable().ajax.reload()
+                clearinput();
+            } 
+        }); 
     }
+
+    function clearinput(){
+        $("input").val("");
+        $("#pict_view").html("");
+        $("#pict_view").css('display','none');
+    }
+
+    function DeleteData(id){
+        if(confirm('Anda yakin ingin menghapus data ini?')){
+            $.ajax({
+            url : "{{ route('member_destroy') }}",
+            type: "POST",
+            data: {id:id},
+            success: function(data)
+            { 
+               $('#example').DataTable().ajax.reload();  
+			    
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+        }
+    }
+    
+    function UbahData(id){ 
+        $('#myModal').modal('show');  
+        $.ajax({
+            url : "{{ route('member_get_data') }}",
+            type: "POST",
+            data: {id:id},
+            success: function(data)
+            {  
+                // console.log(data);
+                $("#id").val(data.id);
+                $("#barcode").val(data.barcode);
+                $("#title").val(data.title);
+                $("#member_name").val(data.member_name); 
+
+                $("#id_number").val(data.id_number);
+                $("#dob").val(data.dob);
+                $("#pob").val(data.pob);
+                $("#phone").val(data.phone);
+                $("#gender").val(data.gender);
+
+                $("#email").val(data.email);
+                $("#emer_contact").val(data.emer_contact);
+                $("#referal").val(data.referal);
+
+                if(data.foto != null || data.foto != ''){
+                    image = new Image();
+                    image.src = '{{ asset('uploads/') }}/'+data.foto;
+                    image.style.width = '50%';
+                    image.style.height = '50%';  
+                    $("#pict_view").empty().append(image);
+                    $("#foto").css({"margin-top":"5%"})
+                } 
+            } 
+        });
+}
+
 </script>
 @endsection
