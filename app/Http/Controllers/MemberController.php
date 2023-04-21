@@ -19,23 +19,43 @@ class MemberController extends Controller
     public function save(Request $request){ 
        
         if($request->id == NULL || $request->id == ''){
+            
             $destinationPath = 'uploads';
             $posting_foto = $request->file('foto'); 
-            $member = new \App\Models\MemberModel();
-            $member->title = $request->title;
-            $member->barcode = $request->barcode; 
-            $member->member_name = $request->member_name; 
-            $member->id_number = $request->member_name; 
-            $member->dob = $request->dob; 
-            $member->pob = $request->pob; 
-            $member->phone = $request->phone; 
-            $member->gender = $request->gender; 
-            $member->email = $request->email; 
-            $member->emer_contact = $request->emer_contact; 
-            $member->referal = $request->referal;  
-            $member->foto = $request->file('foto')->getClientOriginalName(); 
-            $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName());
-            $member->save();
+
+            if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
+                $member = new \App\Models\MemberModel();
+                $member->title = $request->title;
+                $member->barcode = $request->barcode; 
+                $member->member_name = $request->member_name; 
+                $member->id_number = $request->member_name; 
+                $member->dob = $request->dob; 
+                $member->pob = $request->pob; 
+                $member->phone = $request->phone; 
+                $member->gender = $request->gender; 
+                $member->email = $request->email; 
+                $member->emer_contact = $request->emer_contact; 
+                $member->referal = $request->referal;  
+              
+                $member->save();
+            }else{
+                $member = new \App\Models\MemberModel();
+                $member->title = $request->title;
+                $member->barcode = $request->barcode; 
+                $member->member_name = $request->member_name; 
+                $member->id_number = $request->member_name; 
+                $member->dob = $request->dob; 
+                $member->pob = $request->pob; 
+                $member->phone = $request->phone; 
+                $member->gender = $request->gender; 
+                $member->email = $request->email; 
+                $member->emer_contact = $request->emer_contact; 
+                $member->referal = $request->referal;  
+                $member->foto = $request->file('foto')->getClientOriginalName(); 
+                $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName()); 
+                $member->save();
+            }
+         
  
         }else{
             $posting_foto = $request->file('foto'); 

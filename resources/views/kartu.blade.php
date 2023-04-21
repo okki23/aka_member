@@ -260,8 +260,11 @@
 
   <div class="card">
     <div class="left">
-      {{-- <img src="https://cdn.onlinewebfonts.com/svg/img_76927.png" style="width: 70%; height: 60%; float: left; margin-left: 60px; margin-top:-20px;" alt="memberprofile"> --}}
-      <img src="{{ asset('uploads/'.$data->foto) }}" style="border-radius:50%; width: 70%; height: 60%; float: left; margin-left: 60px; margin-top:-20px;" alt="memberprofile">
+        @if($data->foto == null || $data->foto == '' || !$data->foto)
+            <img src="https://cdn.onlinewebfonts.com/svg/img_76927.png" style="width: 70%; height: 60%; float: left; margin-left: 60px; margin-top:-20px;" alt="memberprofile">
+        @else 
+            <img src="{{ asset('uploads/'.$data->foto) }}" style="border-radius:50%; width: 70%; height: 60%; float: left; margin-left: 60px; margin-top:-20px;" alt="memberprofile">
+        @endif 
       <i class="fa fa-long-arrow-left"></i>
       <i class="fa fa-long-arrow-right"></i>
     </div>

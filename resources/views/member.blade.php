@@ -171,7 +171,31 @@
         </div>
         </div>
     </div>
-  
+
+    <div style="position: absolute; bottom: 1rem; right: 1rem;">
+        <!-- Toast -->
+        <div class="toast" id="toastSave" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div class="toast-header">
+                <i data-feather="bell"></i>
+                <strong class="mr-auto">  &nbsp; Pesan Sistem</strong> 
+                <button class="ml-2 mb-1 btn-close" type="button" data-bs-dismiss="toast" aria-label="Close">                                                                </button>
+            </div>
+            <div class="toast-body">Data yang diinput sudah berhasil di simpan ke database.</div>
+        </div>
+    </div>
+
+    <div style="position: absolute; bottom: 1rem; right: 1rem;">
+        <!-- Toast -->
+        <div class="toast" id="toastDel" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div class="toast-header">
+                <i data-feather="bell"></i>
+                <strong class="mr-auto"> &nbsp; Pesan Sistem</strong> 
+                <button class="ml-2 mb-1 btn-close" type="button" data-bs-dismiss="toast" aria-label="Close">                                                                </button>
+            </div>
+            <div class="toast-body">Data yang terpilih sudah berhasil di hapus dari database.</div>
+        </div>
+    </div>
+    
 </main>
 <script>
     $(document).ready(function () {
@@ -225,7 +249,8 @@
             success: function (data) { 
                 console.log("SUCCESS : ", data); 
                 $('#myModal').modal('hide'); 
-                $('#example').DataTable().ajax.reload()
+                $('#example').DataTable().ajax.reload();
+                $("#toastSave").toast("show");
                 clearinput();
             },
 
@@ -253,6 +278,7 @@
             success: function(data)
             { 
                $('#example').DataTable().ajax.reload();  
+               $("#toastDel").toast("show");
 			    
             },
             error: function (jqXHR, textStatus, errorThrown)
