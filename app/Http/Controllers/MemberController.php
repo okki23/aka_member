@@ -34,6 +34,7 @@ class MemberController extends Controller
                 $member->phone = $request->phone; 
                 $member->gender = $request->gender; 
                 $member->email = $request->email; 
+                $member->address = $request->address; 
                 $member->emer_contact = $request->emer_contact; 
                 $member->referal = $request->referal;  
               
@@ -49,6 +50,7 @@ class MemberController extends Controller
                 $member->phone = $request->phone; 
                 $member->gender = $request->gender; 
                 $member->email = $request->email; 
+                $member->address = $request->address;
                 $member->emer_contact = $request->emer_contact; 
                 $member->referal = $request->referal;  
                 $member->foto = $request->file('foto')->getClientOriginalName(); 
@@ -72,6 +74,7 @@ class MemberController extends Controller
                     'phone' => $request->phone,
                     'gender' => $request->gender,
                     'email' => $request->email,
+                    'address' => $request->address,
                     'emer_contact' => $request->emer_contact,
                     'referal' => $request->referal,  
                 ]);
@@ -87,6 +90,7 @@ class MemberController extends Controller
                     'phone' => $request->phone,
                     'gender' => $request->gender,
                     'email' => $request->email,
+                    'address' => $request->address,
                     'emer_contact' => $request->emer_contact,
                     'referal' => $request->referal,
                     'foto' => $request->file('foto')->getClientOriginalName(), 

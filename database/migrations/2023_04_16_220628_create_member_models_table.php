@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
             $table->string('email');
+            $table->string('address')->nullable();
             $table->string('emer_contact')->nullable();
             $table->string('referal')->nullable();
             $table->string('foto')->nullable();

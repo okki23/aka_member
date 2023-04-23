@@ -9,9 +9,9 @@
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
-                           Member
+                           Instruktur
                         </h1>
-                        <div class="page-header-subtitle">Halaman untuk me-manage data member</div>
+                        <div class="page-header-subtitle">Halaman untuk me-manage data instruktur</div>
                     </div>
  
                 </div>
@@ -21,7 +21,7 @@
     <!-- Main page content-->
     <div class="container-xl px-4 mt-n10">
         <div class="card">
-            <div class="card-header">Master Member</div>
+            <div class="card-header">Master instruktur</div>
                 <div class="card-body">
 
                     <button class="btn btn-primary" onclick="AddData();"> 
@@ -35,7 +35,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Barcode</th>
-                                <th>Member Name</th>
+                                <th>instruktur Name</th>
                                 <th>Email</th> 
                                 <th>Actions</th>
                             </tr>
@@ -83,8 +83,8 @@
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Member name</label>
-                                <input class="form-control onlytext" id="member_name" name="member_name" type="text">
+                                <label class="small mb-1" for="inputLastName">instruktur name</label>
+                                <input class="form-control onlytext" id="instruktur_name" name="instruktur_name" type="text">
                             </div>
                         </div>
                         <!-- Form Row        -->
@@ -248,11 +248,11 @@
         $('#example').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('member_list') }}",
+            ajax: "{{ route('instruktur_list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'barcode', name: 'barcode'},
-                {data: 'member_name', name: 'member_name'},
+                {data: 'instruktur_name', name: 'instruktur_name'},
                 {data: 'email', name: 'email'}, 
                 {
                     data: 'action', 
@@ -272,10 +272,7 @@
 
     function AddData(){
         clearinput();
-        $.get('{{ route('member_add_form') }}',function(result){
-            console.log(result);
-            $("#barcode").val(result);
-        });
+        
         $('#myModal').modal('show');  
     }
 
@@ -294,7 +291,7 @@
             $.ajax({ 
             type: "POST", 
             enctype: 'multipart/form-data', 
-            url:"{{ route('member_save') }}", 
+            url:"{{ route('instruktur_save') }}", 
             data: data, 
             processData: false, 
             contentType: false, 
@@ -331,7 +328,7 @@
     function DeleteData(id){
         if(confirm('Anda yakin ingin menghapus data ini?')){
             $.ajax({
-            url : "{{ route('member_destroy') }}",
+            url : "{{ route('instruktur_destroy') }}",
             type: "POST",
             data: {id:id},
             success: function(data)
@@ -351,7 +348,7 @@
     function UbahData(id){ 
         $('#myModal').modal('show');  
         $.ajax({
-            url : "{{ route('member_get_data') }}",
+            url : "{{ route('instruktur_get_data') }}",
             type: "POST",
             data: {id:id},
             success: function(data)
@@ -360,7 +357,7 @@
                 $("#id").val(data.id);
                 $("#barcode").val(data.barcode);
                 $("#title").val(data.title);
-                $("#member_name").val(data.member_name); 
+                $("#instruktur_name").val(data.instruktur_name); 
 
                 $("#id_number").val(data.id_number);
                 $("#dob").val(data.dob);

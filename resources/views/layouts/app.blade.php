@@ -95,8 +95,10 @@
                                     <a class="nav-link" href="{{ route('member') }}">Member</a>
                                     <a class="nav-link" href="dashboard-3.html">Service</a>
                                     <a class="nav-link" href="dashboard-3.html">User</a>
-                                    <a class="nav-link" href="dashboard-3.html">Instruktur</a>
+                                    <a class="nav-link" href="{{ route('instruktur') }}">Instruktur</a>
                                     <a class="nav-link" href="dashboard-3.html">User</a>
+                                    <a class="nav-link" href="{{ route('uom') }}">UOM</a>
+                                    <a class="nav-link" href="{{ route('bank') }}">Bank</a>
                                     <a class="nav-link" href="dashboard-3.html">Employee</a>
                                 </nav>
                             </div>

@@ -9,5 +9,5 @@ class MemberModel extends Model
 {
     use HasFactory;
     protected $table = "member";
-    protected $fillable = ['id','barcode','title','member_name','id_number','dob','pob','phone','gender','email','emer_contact','referal','foto','created_at','updated_at'];
+    protected $fillable = ['id','barcode','title','member_name','id_number','dob','pob','phone','gender','email','address','emer_contact','referal','foto','created_at','updated_at'];
 } 

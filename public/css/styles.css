@@ -7852,8 +7852,8 @@ textarea.form-control-lg {
   border-top-right-radius: calc(0.35rem - 1px);
 }
 .toast-header .btn-close {
-  margin-right: -0.375rem;
-  margin-left: 0.75rem;
+  /* margin-right: -0.375rem; */
+  margin-left: 175px;
 }
 
 .toast-body {
