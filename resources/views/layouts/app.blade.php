@@ -96,11 +96,11 @@
                                     <a class="nav-link" href="dashboard-3.html">Service</a>
                                     <a class="nav-link" href="dashboard-3.html">User</a>
                                     <a class="nav-link" href="{{ route('instruktur') }}">Instruktur</a>
-                                    <a class="nav-link" href="dashboard-3.html">User</a>
+                                  
                                     <a class="nav-link" href="{{ route('groupins') }}">Group Instructur</a>
                                     <a class="nav-link" href="{{ route('uom') }}">UOM</a>
                                     <a class="nav-link" href="{{ route('bank') }}">Bank</a>
-                                    <a class="nav-link" href="dashboard-3.html">Employee</a>
+                                    <a class="nav-link" href="{{ route('employee') }}">Employee</a>
                                 </nav>
                             </div>
 

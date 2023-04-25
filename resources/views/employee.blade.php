@@ -9,9 +9,9 @@
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
-                           Instruktur
+                           Employee
                         </h1>
-                        <div class="page-header-subtitle">Halaman untuk me-manage data instruktur</div>
+                        <div class="page-header-subtitle">Halaman untuk me-manage data Employee / Pegawai</div>
                     </div>
  
                 </div>
@@ -21,7 +21,7 @@
     <!-- Main page content-->
     <div class="container-xl px-4 mt-n10">
         <div class="card">
-            <div class="card-header">Master instruktur</div>
+            <div class="card-header">Master Employee</div>
                 <div class="card-body">
 
                     <button class="btn btn-primary" onclick="AddData();"> 
@@ -34,8 +34,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>ID Instructur</th>
-                                <th>Instructur Name</th>
+                                <th>ID Employee</th>
+                                <th>Employee Name</th>
                                 <th>Email</th> 
                                 <th>Actions</th>
                             </tr>
@@ -65,8 +65,8 @@
                         <input type="hidden" name="id" id="id">
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">ID Instructure</label>
-                            <input class="form-control" id="instructur_code" readonly="readonly" name="instructur_code" type="text"  >
+                            <label class="small mb-1" for="inputUsername">ID Employee</label>
+                            <input class="form-control" id="employee_code" readonly="readonly" name="employee_code" type="text"  >
 
                             {{-- <div class="mb-3">{!! DNS1D::getBarcodeHTML('4445645656', 'PHARMA') !!}</div> --}}
                         </div>
@@ -74,8 +74,8 @@
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Instruktur Name</label>
-                                <input class="form-control onlytext" id="instructur_name" name="instructur_name" type="text">
+                                <label class="small mb-1" for="inputLastName">Employee Name</label>
+                                <input class="form-control onlytext" id="employee_name" name="employee_name" type="text">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
@@ -88,8 +88,7 @@
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Gender</label>
-                                <select class="form-control" name="gender" id="gender">
-                                    <option value="" selected="selected">--Select--</option>
+                                <select class="form-control" name="gender" id="gender"> 
                                     <option value="1">Pria</option>
                                     <option value="2">Wanita</option> 
                                 </select>
@@ -98,7 +97,7 @@
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Marital Status</label>
                                 <select class="form-control" name="marital_status" id="marital_status">
-                                    <option value="" selected="selected">--Select--</option>
+                               
                                     <option value="1">TK (Tidak Kawin)</option>
                                     <option value="2">K0 (Kawin) </option> 
                                     <option value="2">K1 (Kawin Anak 1)</option> 
@@ -109,6 +108,22 @@
                             </div>
                         </div>
                         
+                          <!-- Form Row-->
+                          <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Job Title</label>
+                                    <input class="form-control" id="job_title" name="job_title" type="text"> 
+                            </div>
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                      
+                                        <option value="1">Aktif</option>
+                                        <option value="2">Tidak Aktif</option>
+                                    </select>
+                            </div> 
+                        </div> 
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
@@ -131,7 +146,7 @@
                             </div>
                             <div class="col-md-6"> 
                                     <label class="small mb-1" for="inputLastName">Bank</label>
-                                    <select class="form-control" name="marital_status" id="marital_status">
+                                    <select class="form-control" name="id_bank" id="id_bank">
                                     @foreach ($databank as $key=>$value)
                                         <option value="{{ $value['id'] }}"> {{ $value['bank'] }} </option>
                                     @endforeach
@@ -164,21 +179,17 @@
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6"> 
-                                <label class="small mb-1" for="inputLastName">Group</label>
-                                <select class="form-control" name="id_group" id="id_group">
-                                @foreach ($datagroup as $keys=>$values)
-                                    <option value="{{ $values['id'] }}"> {{ $values['group_name'] }} </option>
-                                @endforeach
-                                </select>
+                                <label class="small mb-1" for="inputLastName">Foto</label>
+                                <input type="file" name="foto" id="foto" class="form-control">
                         </div> 
                          </div>
 
                          <div class="mb-3">
                             <div id="pict_view"></div>
-                            <label class="small mb-1" for="inputUsername">Foto</label>
+                            {{-- <label class="small mb-1" for="inputUsername">Foto</label>
                             <label class="small mb-1 btn btn-danger btn-xs" >Photo (*max 5 MB - JPG | JPEG | PNG) </label>
                             <input type="file" name="foto" id="foto" class="form-control">
-                         
+                          --}}
                         </div>
                     
                        
@@ -267,11 +278,11 @@
         $('#example').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('instruktur_list') }}",
+            ajax: "{{ route('employee_list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'instructur_code', name: 'instructur_code'},
-                {data: 'instructur_name', name: 'instructur_name'},
+                {data: 'employee_code', name: 'employee_code'},
+                {data: 'employee_name', name: 'employee_name'},
                 {data: 'email', name: 'email'}, 
                 {
                     data: 'action', 
@@ -291,9 +302,9 @@
 
     function AddData(){
         clearinput();
-        $.get('{{ route('instruktur_add_form') }}',function(result){
+        $.get('{{ route('employee_add_form') }}',function(result){
             console.log(result);
-            $("#instructur_code").val(result);
+            $("#employee_code").val(result);
         });
         $('#myModal').modal('show');  
     }
@@ -309,11 +320,12 @@
         var form = $('#my-form')[0]; 
         var data = new FormData(form);  
         var email = $("#email").val();
-        if(isEmail(email)){
+        var status = $("#status").val();
+        if(isEmail(email) || empty(status) || status==''){
             $.ajax({ 
             type: "POST", 
             enctype: 'multipart/form-data', 
-            url:"{{ route('instruktur_save') }}", 
+            url:"{{ route('employee_save') }}", 
             data: data, 
             processData: false, 
             contentType: false, 
@@ -349,7 +361,7 @@
     function DeleteData(id){
         if(confirm('Anda yakin ingin menghapus data ini?')){
             $.ajax({
-            url : "{{ route('instruktur_destroy') }}",
+            url : "{{ route('employee_destroy') }}",
             type: "POST",
             data: {id:id},
             success: function(data)
@@ -369,21 +381,23 @@
     function UbahData(id){ 
         $('#myModal').modal('show');  
         $.ajax({
-            url : "{{ route('instruktur_get_data') }}",
+            url : "{{ route('employee_get_data') }}",
             type: "POST",
             data: {id:id},
             success: function(data)
             {  
                 // console.log(data);
                 $("#id").val(data.id);
-                $("#instructur_code").val(data.instructur_code);
-                $("#instructur_name").val(data.instructur_name);
-                $("#instruktur_name").val(data.instruktur_name);  
+                $("#employee_code").val(data.employee_code);
+                $("#employee_name").val(data.employee_name);
+                $("#employee_name").val(data.employee_name);  
                 $("#birth_date").val(data.birth_date);
                 $("#gender").val(data.gender);
                 $("#marital_status").val(data.marital_status);
                 $("#address").val(data.address);
                 $("#join_date").val(data.join_date); 
+                $("#job_title").val(data.job_title);
+                $("#status").val(data.status); 
                 $("#npwp").val(data.npwp);
                 $("#id_bank").val(data.id_bank);
                 $("#account_bank").val(data.account_bank);

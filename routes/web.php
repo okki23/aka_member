@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GroupinsController;
 use Illuminate\Support\Facades\Route;
   
@@ -59,5 +60,13 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
        Route::post('/groupins_save',[GroupinsController::class,'save'])->name('groupins_save');
        Route::post('/groupins_destroy',[GroupinsController::class,'destroy'])->name('groupins_destroy');
        Route::post('/groupins_get_data',[GroupinsController::class,'get_data'])->name('groupins_get_data');
-
+ 
+    //master-employee
+      Route::get('/employee',[EmployeeController::class,'index'])->name('employee');
+      Route::get('/employee_list',[EmployeeController::class,'datalist'])->name('employee_list');
+      Route::post('/employee_save',[EmployeeController::class,'save'])->name('employee_save');
+      Route::post('/destroy',[EmployeeController::class,'destroy'])->name('employee_destroy');
+      Route::post('/employee_get_data',[EmployeeController::class,'get_data'])->name('employee_get_data');
+      Route::get('/employee_add_form',[EmployeeController::class,'add_form'])->name('employee_add_form');
+      Route::get('/employee_kartu/{id}',[EmployeeController::class,'kartu'])->name('employee_kartu');
  });

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Instructur - {{ $data->instructur_name }}</title>
+    <title>Card Employee - {{ $data->employee_name }}</title>
     <style>
 
         @import url('https://fonts.googleapis.com/css?family=Muli');
@@ -279,10 +279,14 @@
           <i class="fa fa-shopping-cart"></i>
         </div>
         <div class="details"> 
-          <h3>{{ $data->instructur_name }} (Instructure) </h3> 
-          <h2>{{ $data->instructur_code }} </h2>
-          <h2 style="margin-top:20px;">{{ $data->group_name }} </h2>
-          {{-- {!! DNS1D::getBarcodeHTML($data->instructur_code, 'PHARMA',3,60,'black',true) !!} --}}
+          <h3>{{ $data->employee_name }}</h3> 
+          <h2>{{ $data->job_title }} </h2>
+          &nbsp;
+          <br>
+          <br>
+          <h4>{{ $data->phone }} </h4>
+          <h4>{{ $data->email }} </h4>
+          {{-- {!! DNS1D::getBarcodeHTML($data->employee_code, 'PHARMA',3,60,'black',true) !!} --}}
         </div>
         
       

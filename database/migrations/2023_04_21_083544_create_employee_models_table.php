@@ -11,8 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_models', function (Blueprint $table) {
+        Schema::create('employee', function (Blueprint $table) {
             $table->id();
+            $table->string('employee_code')->length(100);
+            $table->string('employee_name')->length(100);
+            $table->date('birth_date')->nullable();
+            $table->string('gender')->length(100)->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('job_title')->length(100)->nullable();
+            $table->string('address')->length(100)->nullable();
+            $table->date('join_date');
+            $table->integer('status');
+            $table->string('npwp')->length(100)->nullable();
+            $table->integer('id_bank')->nullable();
+            $table->string('account_bank')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('foto')->nullable(); 
             $table->timestamps();
         });
     }
@@ -22,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_models');
+        Schema::dropIfExists('employee');
     }
 };
