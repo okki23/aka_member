@@ -157,10 +157,13 @@
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
+                                <div id="pict_view"></div>
                                 <label class="small mb-1 btn btn-danger btn-xs" >Photo (*max 5 MB - JPG | JPEG | PNG) </label>
                                 <input type="file" name="foto" id="foto" class="form-control">
                             </div>
                          </div>
+
+                        
                     
                        
                     </form>

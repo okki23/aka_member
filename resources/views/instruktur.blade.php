@@ -34,8 +34,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Barcode</th>
-                                <th>instruktur Name</th>
+                                <th>ID Instructur</th>
+                                <th>Instructur Name</th>
                                 <th>Email</th> 
                                 <th>Actions</th>
                             </tr>
@@ -65,8 +65,8 @@
                         <input type="hidden" name="id" id="id">
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Barcode</label>
-                            <input class="form-control" id="barcode" readonly="readonly" name="barcode" type="text"  >
+                            <label class="small mb-1" for="inputUsername">ID Instructure</label>
+                            <input class="form-control" id="instructur_code" readonly="readonly" name="instructur_code" type="text"  >
 
                             {{-- <div class="mb-3">{!! DNS1D::getBarcodeHTML('4445645656', 'PHARMA') !!}</div> --}}
                         </div>
@@ -74,77 +74,84 @@
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">Title</label>
-                                <select class="form-control" id="title" name="title">
-                                    <option value="" selected="selected">--Select--</option>
-                                    <option value="1">Mr</option>
-                                    <option value="2">Mrs</option> 
-                                </select>
+                                <label class="small mb-1" for="inputLastName">Instruktur Name</label>
+                                <input class="form-control onlytext" id="instructur_name" name="instructur_name" type="text">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">instruktur name</label>
-                                <input class="form-control onlytext" id="instruktur_name" name="instruktur_name" type="text">
+                                <label class="small mb-1" for="inputLastName">Birth Date</label>
+                                <input class="form-control" id="birth_date" name="birth_date" type="date">
                             </div>
                         </div>
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputOrgName">Identity Number</label>
-                                <input class="form-control" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="id_number" name="id_number" type="text" >
+                                <label class="small mb-1" for="inputPhone">Gender</label>
+                                <select class="form-control" name="gender" id="gender">
+                                    <option value="" selected="selected">--Select--</option>
+                                    <option value="1">Pria</option>
+                                    <option value="2">Wanita</option> 
+                                </select>
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Date of Birth</label>
-                                <input class="form-control" id="dob" name="dob" type="date" >
+                                <label class="small mb-1" for="inputPhone">Marital Status</label>
+                                <select class="form-control" name="marital_status" id="marital_status">
+                                    <option value="" selected="selected">--Select--</option>
+                                    <option value="1">TK (Tidak Kawin)</option>
+                                    <option value="2">K0 (Kawin) </option> 
+                                    <option value="2">K1 (Kawin Anak 1)</option> 
+                                    <option value="4">K2 (Kawin Anak 2)</option>
+                                    <option value="5">CK (Cerai Kawin)</option> 
+                                    <option value="6">CM (Cerai Meninggal)</option>
+                                </select>
                             </div>
                         </div>
                         
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Place Of Birth</label>
-                                <input class="form-control onlytext" id="pob" name="pob" type="text"  >
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Address</label>
+                                    <input class="form-control" id="address" name="address" type="text"> 
                             </div>
-                            <!-- Form Group (birthday)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Phone </label>
-                                <input class="form-control" id="phone" type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="phone" >
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Join Date</label>
+                                    <input class="form-control" id="join_date" name="join_date" type="date">
+                              
+                            </div> 
+                        </div> 
+                        <!-- Form Row-->
+                          <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">NPWP (Number Only)</label>
+                                    <input class="form-control" id="npwp" name="npwp" type="text"> 
                             </div>
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Bank</label>
+                                    <select class="form-control" name="marital_status" id="marital_status">
+                                    @foreach ($databank as $key=>$value)
+                                        <option value="{{ $value['id'] }}"> {{ $value['bank'] }} </option>
+                                    @endforeach
+                                    </select>
+                            </div> 
                         </div> 
                         <!-- Form Row-->
                             <div class="row gx-3 mb-3">
                                 <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Gender</label>
-                                    <select class="form-control" name="gender" id="gender">
-                                        <option value="" selected="selected">--Select--</option>
-                                        <option value="1">Pria</option>
-                                        <option value="2">Wanita</option> 
-                                    </select>
+                                <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Account Bank</label>
+                                    <input class="form-control" id="account_bank" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="account_bank" type="text"> 
                                 </div>
                                 <!-- Form Group (birthday)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Email </label>
-                                    <input class="form-control onlyemail" id="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" type="text" name="email" >
-                                    <div id="valid"></div>
+                                <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Phone</label>
+                                    <input class="form-control" id="phone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="phone" type="text"> 
                                 </div>
                         </div>
-                        <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Emergency Contact</label>
-                                    <input class="form-control" name="emer_contact" id="emer_contact" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text">
-                                </div>
-                                <!-- Form Group (birthday)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Referal </label>
-                                    <input class="form-control" id="referal" type="text" name="referal">
-                                </div>
-                        </div>
+                         
                         <!-- Form Group (username)-->
                         
 
@@ -152,15 +159,27 @@
                           <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Address</label>
-                                <input class="form-control" name="address" id="address" type="text">
+                                <label class="small mb-1" for="inputPhone">Email</label>
+                                <input class="form-control onlyemail" name="email" id="email" type="text">
                             </div>
                             <!-- Form Group (birthday)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1 btn btn-danger btn-xs" >Photo (*max 5 MB - JPG | JPEG | PNG) </label>
-                                <input type="file" name="foto" id="foto" class="form-control">
-                            </div>
+                            <div class="col-md-6"> 
+                                <label class="small mb-1" for="inputLastName">Group</label>
+                                <select class="form-control" name="id_group" id="id_group">
+                                @foreach ($datagroup as $keys=>$values)
+                                    <option value="{{ $values['id'] }}"> {{ $values['group_name'] }} </option>
+                                @endforeach
+                                </select>
+                        </div> 
                          </div>
+
+                         <div class="mb-3">
+                            <div id="pict_view"></div>
+                            <label class="small mb-1" for="inputUsername">Foto</label>
+                            <label class="small mb-1 btn btn-danger btn-xs" >Photo (*max 5 MB - JPG | JPEG | PNG) </label>
+                            <input type="file" name="foto" id="foto" class="form-control">
+                         
+                        </div>
                     
                        
                     </form>
@@ -251,8 +270,8 @@
             ajax: "{{ route('instruktur_list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'barcode', name: 'barcode'},
-                {data: 'instruktur_name', name: 'instruktur_name'},
+                {data: 'instructur_code', name: 'instructur_code'},
+                {data: 'instructur_name', name: 'instructur_name'},
                 {data: 'email', name: 'email'}, 
                 {
                     data: 'action', 
@@ -272,7 +291,10 @@
 
     function AddData(){
         clearinput();
-        
+        $.get('{{ route('instruktur_add_form') }}',function(result){
+            console.log(result);
+            $("#instructur_code").val(result);
+        });
         $('#myModal').modal('show');  
     }
 
@@ -320,9 +342,8 @@
     }
 
     function clearinput(){
-        $("input").val("");
-        $("#pict_view").html("");
-        $("#pict_view").css('display','none');
+        $("input").val(""); 
+        $("#pict_view").empty();
     }
 
     function DeleteData(id){
@@ -355,20 +376,20 @@
             {  
                 // console.log(data);
                 $("#id").val(data.id);
-                $("#barcode").val(data.barcode);
-                $("#title").val(data.title);
-                $("#instruktur_name").val(data.instruktur_name); 
-
-                $("#id_number").val(data.id_number);
-                $("#dob").val(data.dob);
-                $("#pob").val(data.pob);
-                $("#phone").val(data.phone);
+                $("#instructur_code").val(data.instructur_code);
+                $("#instructur_name").val(data.instructur_name);
+                $("#instruktur_name").val(data.instruktur_name);  
+                $("#birth_date").val(data.birth_date);
                 $("#gender").val(data.gender);
-
-                $("#email").val(data.email);
+                $("#marital_status").val(data.marital_status);
                 $("#address").val(data.address);
-                $("#emer_contact").val(data.emer_contact);
-                $("#referal").val(data.referal);
+                $("#join_date").val(data.join_date); 
+                $("#npwp").val(data.npwp);
+                $("#id_bank").val(data.id_bank);
+                $("#account_bank").val(data.account_bank);
+                $("#phone").val(data.phone);
+                $("#email").val(data.email);
+                $("#id_group").val(data.id_group); 
 
                 if(data.foto != null || data.foto != ''){
                     image = new Image();

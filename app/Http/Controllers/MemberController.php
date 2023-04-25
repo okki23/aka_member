@@ -62,15 +62,7 @@ class MemberController extends Controller
         }else{
             $posting_foto = $request->file('foto'); 
             $destinationPath = 'uploads';
-            
-            if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
-                \DB::table('member')->where('id',$request->id)->update([
-                    'title' => $request->title,
-                    'barcode' => $request->barcode,
-                    'member_name' => $request->member_name,
-                    'id_number' => $request->id_number,
-                    'dob' => $request->dob,
-                    'pob' => $request->pob,
+            barcode
                     'phone' => $request->phone,
                     'gender' => $request->gender,
                     'email' => $request->email,
