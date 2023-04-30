@@ -30,6 +30,15 @@ return new class extends Migration
             $table->string('foto')->nullable(); 
             $table->timestamps();
         });
+
+        DB::table('employee')->insert([
+            'employee_code' => 0000001,
+            'employee_name' => 'Super Admin',
+            'join_date' => '1970-01-01',
+            'status' => 1,
+            'email' => 'admin@superuser.id'
+        ]);
+ 
     }
 
     /**

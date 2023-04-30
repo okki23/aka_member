@@ -60,9 +60,10 @@ class MemberController extends Controller
          
  
         }else{
-            $posting_foto = $request->file('foto'); 
-            $destinationPath = 'uploads';
-            barcode
+                $posting_foto = $request->file('foto');  
+                $destinationPath = 'uploads'; 
+                if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
+                \DB::table('member')->where('id',$request->id)->update([
                     'phone' => $request->phone,
                     'gender' => $request->gender,
                     'email' => $request->email,

@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UomController;
+use App\Http\Controllers\UserController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
  Route::get('/', function () {
@@ -65,8 +67,19 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
       Route::get('/employee',[EmployeeController::class,'index'])->name('employee');
       Route::get('/employee_list',[EmployeeController::class,'datalist'])->name('employee_list');
       Route::post('/employee_save',[EmployeeController::class,'save'])->name('employee_save');
-      Route::post('/destroy',[EmployeeController::class,'destroy'])->name('employee_destroy');
+      Route::post('/employee_destroy',[EmployeeController::class,'destroy'])->name('employee_destroy');
       Route::post('/employee_get_data',[EmployeeController::class,'get_data'])->name('employee_get_data');
       Route::get('/employee_add_form',[EmployeeController::class,'add_form'])->name('employee_add_form');
       Route::get('/employee_kartu/{id}',[EmployeeController::class,'kartu'])->name('employee_kartu');
+
+    //master-pengguna
+      Route::get('/pengguna',[PenggunaController::class,'index'])->name('pengguna');
+      Route::get('/pengguna_list',[PenggunaController::class,'datalist'])->name('pengguna_list');
+      Route::get('/pengguna_profile',[PenggunaController::class,'pengguna_profile'])->name('pengguna_profile');
+      Route::post('/pengguna_save',[PenggunaController::class,'save'])->name('pengguna_save');
+      Route::post('/destroy',[PenggunaController::class,'destroy'])->name('pengguna_destroy');
+      Route::post('/pengguna_get_data',[PenggunaController::class,'get_data'])->name('pengguna_get_data');
+      Route::post('/save_profile',[PenggunaController::class,'save_profile'])->name('save_profile');
+      // Route::get('/user_add_form',[UserController::class,'add_form'])->name('employee_add_form');
+      // Route::get('/user_kartu/{id}',[UserController::class,'kartu'])->name('employee_kartu');
  });

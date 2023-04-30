@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\EmployeeModel;
 use DataTables;
 use App\Models\BankModel; 
-use App\Models\GroupinsModel;
+use App\Models\GroupinsModel; 
 
 class EmployeeController extends Controller
 {
@@ -41,6 +41,13 @@ class EmployeeController extends Controller
                 $employee->job_title = $request->job_title; 
                 $employee->status = $request->status;     
                 $employee->save();
+
+                $users = new \App\Models\PenggunaModel();
+                $users->name = $request->employee_name; 
+                $users->email =  $request->email; 
+                $users->id_employee =  $employee->id; 
+                $users->password = bcrypt('aka123');
+                $users->save();
  
             }else{
                 $employee = new \App\Models\EmployeeModel();
@@ -61,6 +68,13 @@ class EmployeeController extends Controller
                 $employee->foto = $request->file('foto')->getClientOriginalName(); 
                 $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName()); 
                 $employee->save();
+
+                $users = new \App\Models\PenggunaModel();
+                $users->name = $request->employee_name; 
+                $users->email =  $request->email; 
+                $users->id_employee =  $employee->id; 
+                $users->password = bcrypt('aka123');
+                $users->save();
             }
          
  
@@ -117,9 +131,15 @@ class EmployeeController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="'.url('/employee_kartu/'.$row->id).'" target="_blank" class="edit btn btn-warning btn-sm"> Kartu</a> <a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
-                    <a href="javascript:void(0)" onclick="DeleteData('.$row->id.');" class="delete btn btn-danger btn-sm">Delete</a>';
-                    return $actionBtn;
+                    if($row->id == 0000001){
+                        $actionBtn = '';
+                        return $actionBtn;
+                    }else{
+                        $actionBtn = '<a href="'.url('/employee_kartu/'.$row->id).'" target="_blank" class="edit btn btn-warning btn-sm"> Kartu</a> <a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
+                        <a href="javascript:void(0)" onclick="DeleteData('.$row->id.');" class="delete btn btn-danger btn-sm">Delete</a>';
+                        return $actionBtn;
+                    }
+                   
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -133,6 +153,7 @@ class EmployeeController extends Controller
   
         //delete post
         $employee->delete();
+        $users =  Users::where('id', $employee->id_employee)->delete();
 
     }  
 

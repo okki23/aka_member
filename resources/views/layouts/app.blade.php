@@ -45,17 +45,17 @@
               
                 <!-- User Dropdown-->
                 <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
-                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="assets/img/illustrations/profiles/profile-1.png" /></a>
+                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="{{ asset('uploads/'.$data->foto) }}" /></a>
                     <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
-                        <h6 class="dropdown-header d-flex align-items-center">
-                            <img class="dropdown-user-img" src="assets/img/illustrations/profiles/profile-1.png" />
+                        <h6 class="dropdown-header d-flex align-items-center"> 
+                            <img class="dropdown-user-img" src="{{ asset('uploads/'.$data->foto) }}" />
                             <div class="dropdown-user-details">
                                 <div class="dropdown-user-details-name">{{ Auth::user()->name }}</div>
                                 <div class="dropdown-user-details-email">{{ Auth::user()->email }}</div>
                             </div>
                         </h6>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href=" ">
+                        <a class="dropdown-item" href="{{ route('pengguna_profile') }}">
                             <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                             Pengaturan Akun
                         </a>
@@ -93,11 +93,11 @@
                             <div class="collapse" id="collapseDashboards" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages"> 
                                     <a class="nav-link" href="{{ route('member') }}">Member</a>
-                                    <a class="nav-link" href="dashboard-3.html">Service</a>
-                                    <a class="nav-link" href="dashboard-3.html">User</a>
+                                    <a class="nav-link" href="{{ route('service') }}">Service</a>
+                                    <a class="nav-link" href="{{ route('pengguna') }}">User</a>
                                     <a class="nav-link" href="{{ route('instruktur') }}">Instruktur</a>
                                   
-                                    <a class="nav-link" href="{{ route('groupins') }}">Group Instructur</a>
+                                    <a class="nav-link" href="{{ route('groupins') }}">Group Package</a>
                                     <a class="nav-link" href="{{ route('uom') }}">UOM</a>
                                     <a class="nav-link" href="{{ route('bank') }}">Bank</a>
                                     <a class="nav-link" href="{{ route('employee') }}">Employee</a>
