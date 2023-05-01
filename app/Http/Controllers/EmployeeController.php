@@ -7,14 +7,17 @@ use App\Models\EmployeeModel;
 use DataTables;
 use App\Models\BankModel; 
 use App\Models\GroupinsModel; 
+use Illuminate\Support\Facades\Auth;
+
 
 class EmployeeController extends Controller
 {
    
     public function index(){
         $databank = BankModel::all();
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
         $datagroup = GroupinsModel::all();
-        return view('employee',['databank'=>$databank,'datagroup'=>$datagroup]);
+        return view('employee',['databank'=>$databank,'datagroup'=>$datagroup,'data'=>$data]);
     }
 
     public function save(Request $request){ 

@@ -15,7 +15,7 @@ class PenggunaModel extends Model
 
     public static function getAll(){
         $data = \DB::table('users')->join('employee','employee.id','=','users.id_employee')
-        ->select('users.id','users.name as username','users.password','users. ','employee.employee_name')
+        ->select('users.id','users.name as username','users.password','employee.employee_name','employee.employee_code')
         ->get();
         return $data;
         

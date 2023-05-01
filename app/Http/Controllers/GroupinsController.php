@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GroupinsModel;
 use DataTables;
- 
-
+use Illuminate\Support\Facades\Auth;
 
 class groupinsController extends Controller
 {
    
     public function index(){
-        return view('groupins');
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
+        return view('groupins',['data'=>$data]);
     }
 
     public function save(Request $request){ 

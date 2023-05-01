@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('uom', function (Blueprint $table) {
+        Schema::create('service_models', function (Blueprint $table) {
             $table->id();
-            $table->string('uom');
+            $table->string('service_code');
+            $table->string('service_name');
+            $table->text('remark');
+            $table->integer('id_group');
+            $table->string('service_code');
+            $table->string('service_code');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('uom');
+        Schema::dropIfExists('service_models');
     }
 };

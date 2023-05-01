@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MemberModel;
+use App\Models\ServiceModel;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
-class MemberController extends Controller
+
+class ServiceController extends Controller
 {
    
     public function index(){
         $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
-        return view('member',['data'=>$data]);
+        return view('service',['data'=>$data]);
     }
 
     public function save(Request $request){ 
@@ -25,38 +26,38 @@ class MemberController extends Controller
             $posting_foto = $request->file('foto'); 
 
             if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
-                $member = new \App\Models\MemberModel();
-                $member->title = $request->title;
-                $member->barcode = $request->barcode; 
-                $member->member_name = $request->member_name; 
-                $member->id_number = $request->member_name; 
-                $member->dob = $request->dob; 
-                $member->pob = $request->pob; 
-                $member->phone = $request->phone; 
-                $member->gender = $request->gender; 
-                $member->email = $request->email; 
-                $member->address = $request->address; 
-                $member->emer_contact = $request->emer_contact; 
-                $member->referal = $request->referal;  
+                $service = new \App\Models\ServiceModel();
+                $service->title = $request->title;
+                $service->barcode = $request->barcode; 
+                $service->service_name = $request->service_name; 
+                $service->id_number = $request->service_name; 
+                $service->dob = $request->dob; 
+                $service->pob = $request->pob; 
+                $service->phone = $request->phone; 
+                $service->gender = $request->gender; 
+                $service->email = $request->email; 
+                $service->address = $request->address; 
+                $service->emer_contact = $request->emer_contact; 
+                $service->referal = $request->referal;  
               
-                $member->save();
+                $service->save();
             }else{
-                $member = new \App\Models\MemberModel();
-                $member->title = $request->title;
-                $member->barcode = $request->barcode; 
-                $member->member_name = $request->member_name; 
-                $member->id_number = $request->member_name; 
-                $member->dob = $request->dob; 
-                $member->pob = $request->pob; 
-                $member->phone = $request->phone; 
-                $member->gender = $request->gender; 
-                $member->email = $request->email; 
-                $member->address = $request->address;
-                $member->emer_contact = $request->emer_contact; 
-                $member->referal = $request->referal;  
-                $member->foto = $request->file('foto')->getClientOriginalName(); 
+                $service = new \App\Models\ServiceModel();
+                $service->title = $request->title;
+                $service->barcode = $request->barcode; 
+                $service->service_name = $request->service_name; 
+                $service->id_number = $request->service_name; 
+                $service->dob = $request->dob; 
+                $service->pob = $request->pob; 
+                $service->phone = $request->phone; 
+                $service->gender = $request->gender; 
+                $service->email = $request->email; 
+                $service->address = $request->address;
+                $service->emer_contact = $request->emer_contact; 
+                $service->referal = $request->referal;  
+                $service->foto = $request->file('foto')->getClientOriginalName(); 
                 $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName()); 
-                $member->save();
+                $service->save();
             }
          
  
@@ -64,7 +65,7 @@ class MemberController extends Controller
                 $posting_foto = $request->file('foto');  
                 $destinationPath = 'uploads'; 
                 if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
-                \DB::table('member')->where('id',$request->id)->update([
+                \DB::table('service')->where('id',$request->id)->update([
                     'phone' => $request->phone,
                     'gender' => $request->gender,
                     'email' => $request->email,
@@ -74,10 +75,10 @@ class MemberController extends Controller
                 ]);
                
             }else{
-                \DB::table('member')->where('id',$request->id)->update([
+                \DB::table('service')->where('id',$request->id)->update([
                     'title' => $request->title,
                     'barcode' => $request->barcode,
-                    'member_name' => $request->member_name,
+                    'service_name' => $request->service_name,
                     'id_number' => $request->id_number,
                     'dob' => $request->dob,
                     'pob' => $request->pob,
@@ -98,11 +99,11 @@ class MemberController extends Controller
 
     public function datalist(Request $request){ 
         if ($request->ajax()) {
-            $data = MemberModel::latest()->get();
+            $data = ServiceModel::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="'.url('/member_kartu/'.$row->id).'" target="_blank" class="edit btn btn-warning btn-sm"> Kartu</a> <a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
+                    $actionBtn = '<a href="'.url('/service_kartu/'.$row->id).'" target="_blank" class="edit btn btn-warning btn-sm"> Kartu</a> <a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
                     <a href="javascript:void(0)" onclick="DeleteData('.$row->id.');" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
@@ -117,13 +118,13 @@ class MemberController extends Controller
 
     public function destroy(Request $request){
         $id  = $request->id;
-        $member = MemberModel::findOrFail($id);
+        $service = ServiceModel::findOrFail($id);
 
         //delete image
-        Storage::delete('public'. $member->foto);
+        Storage::delete('public'. $service->foto);
 
         //delete post
-        $member->delete();
+        $service->delete();
 
     } 
     public function add_form(){
@@ -132,12 +133,12 @@ class MemberController extends Controller
 
     public function get_data(Request $request){
         $id = $request->id;
-        $member = MemberModel::where('id',$id)->first();
-        return $member;
+        $service = ServiceModel::where('id',$id)->first();
+        return $service;
     }
     
     public function kartu($id){
-        $data = MemberModel::findOrfail($id); 
+        $data = ServiceModel::findOrfail($id); 
         return view ('kartu',['data'=>$data]);
         // $pdf = PDF::loadView('kartu');
        

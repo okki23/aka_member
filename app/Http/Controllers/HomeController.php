@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $data = EmployeeModel::findOrfail(Auth::user()->id)->first();
+         
         $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
         return view('home',['data'=>$data]);
     }

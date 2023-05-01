@@ -10,6 +10,7 @@ use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\UserController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
@@ -51,7 +52,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
         Route::get('/instruktur',[InstrukturController::class,'index'])->name('instruktur');
         Route::get('/instruktur_list',[InstrukturController::class,'datalist'])->name('instruktur_list');
         Route::post('/instruktur_save',[InstrukturController::class,'save'])->name('instruktur_save');
-        Route::post('/destroy',[InstrukturController::class,'destroy'])->name('instruktur_destroy');
+        Route::post('/instruktur_destroy',[InstrukturController::class,'destroy'])->name('instruktur_destroy');
         Route::post('/instruktur_get_data',[InstrukturController::class,'get_data'])->name('instruktur_get_data');
         Route::get('/instruktur_add_form',[InstrukturController::class,'add_form'])->name('instruktur_add_form');
         Route::get('/instruktur_kartu/{id}',[InstrukturController::class,'kartu'])->name('instruktur_kartu');
@@ -82,4 +83,15 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
       Route::post('/save_profile',[PenggunaController::class,'save_profile'])->name('save_profile');
       // Route::get('/user_add_form',[UserController::class,'add_form'])->name('employee_add_form');
       // Route::get('/user_kartu/{id}',[UserController::class,'kartu'])->name('employee_kartu');
+
+     //master-service
+      Route::get('/service',[ServiceController::class,'index'])->name('service');
+      Route::get('/service_list',[ServiceController::class,'datalist'])->name('service_list');
+      Route::post('/service_save',[ServiceController::class,'save'])->name('service_save');
+      Route::post('/service_destroy',[ServiceController::class,'destroy'])->name('service_destroy');
+      // Route::get('/service_add_form',[ServiceController::class,'add_form'])->name('member_add_form');
+      // Route::get('/service_kartu/{id}',[ServiceController::class,'kartu'])->name('member_kartu');
+      Route::post('/service_get_data',[ServiceController::class,'get_data'])->name('service_get_data');
+
+
  });

@@ -13,7 +13,8 @@ class PenggunaController extends Controller
 {
     public function index(){
         $list_emp = EmployeeModel::all();
-        return view('pengguna',['list_emp'=>$list_emp]);
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
+        return view('pengguna',['list_emp'=>$list_emp,'data'=>$data]);
     }
 
     public function save(Request $request){ 
@@ -49,7 +50,7 @@ class PenggunaController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 
-                    if($row->id_employee == 0000001){
+                    if($row->id == '1'){
                         $actionBtn = '';
                         return $actionBtn;
                     }else{

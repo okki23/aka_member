@@ -7,6 +7,7 @@ use App\Models\InstrukturModel;
 use DataTables;
 use App\Models\BankModel; 
 use App\Models\GroupinsModel;
+use Illuminate\Support\Facades\Auth;
 
 class InstrukturController extends Controller
 {
@@ -14,7 +15,8 @@ class InstrukturController extends Controller
     public function index(){
         $databank = BankModel::all();
         $datagroup = GroupinsModel::all();
-        return view('instruktur',['databank'=>$databank,'datagroup'=>$datagroup]);
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
+        return view('instruktur',['data'=>$data,'databank'=>$databank,'datagroup'=>$datagroup]);
     }
 
     public function save(Request $request){ 

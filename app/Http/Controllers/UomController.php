@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UomModel;
 use DataTables;
- 
+use Illuminate\Support\Facades\Auth;
 
 
 class UomController extends Controller
 {
    
     public function index(){
-        return view('uom');
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
+        return view('uom',['data'=>$data]);
     }
 
     public function save(Request $request){ 

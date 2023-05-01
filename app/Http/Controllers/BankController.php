@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BankModel;
 use DataTables;
- 
+use Illuminate\Support\Facades\Auth;
+
 
 
 class BankController extends Controller
 {
    
     public function index(){
-        return view('bank');
+        $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
+        return view('bank',['data'=>$data]);
     }
 
     public function save(Request $request){ 
