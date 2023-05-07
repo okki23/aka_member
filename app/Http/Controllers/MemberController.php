@@ -111,9 +111,7 @@ class MemberController extends Controller
         }
     }
 
-    public function getdata(){
-        
-    }
+    
 
     public function destroy(Request $request){
         $id  = $request->id;

@@ -89,7 +89,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
       Route::get('/service_list',[ServiceController::class,'datalist'])->name('service_list');
       Route::post('/service_save',[ServiceController::class,'save'])->name('service_save');
       Route::post('/service_destroy',[ServiceController::class,'destroy'])->name('service_destroy');
-      // Route::get('/service_add_form',[ServiceController::class,'add_form'])->name('member_add_form');
+      Route::get('/service_add_form',[ServiceController::class,'add_form'])->name('service_add_form');
       // Route::get('/service_kartu/{id}',[ServiceController::class,'kartu'])->name('member_kartu');
       Route::post('/service_get_data',[ServiceController::class,'get_data'])->name('service_get_data');
 

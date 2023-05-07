@@ -8,6 +8,7 @@ use DataTables;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use App\Models\GroupinsModel;
 
 
 class ServiceController extends Controller
@@ -15,95 +16,53 @@ class ServiceController extends Controller
    
     public function index(){
         $data = \DB::table('employee')->where('id','=',Auth::user()->id_employee)->first();
-        return view('service',['data'=>$data]);
+        $group = GroupinsModel::all();
+        return view('service',['data'=>$data,'group'=>$group]);
     }
 
     public function save(Request $request){ 
-       
-        if($request->id == NULL || $request->id == ''){
-            
-            $destinationPath = 'uploads';
-            $posting_foto = $request->file('foto'); 
-
-            if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
-                $service = new \App\Models\ServiceModel();
-                $service->title = $request->title;
-                $service->barcode = $request->barcode; 
-                $service->service_name = $request->service_name; 
-                $service->id_number = $request->service_name; 
-                $service->dob = $request->dob; 
-                $service->pob = $request->pob; 
-                $service->phone = $request->phone; 
-                $service->gender = $request->gender; 
-                $service->email = $request->email; 
-                $service->address = $request->address; 
-                $service->emer_contact = $request->emer_contact; 
-                $service->referal = $request->referal;  
-              
-                $service->save();
-            }else{
-                $service = new \App\Models\ServiceModel();
-                $service->title = $request->title;
-                $service->barcode = $request->barcode; 
-                $service->service_name = $request->service_name; 
-                $service->id_number = $request->service_name; 
-                $service->dob = $request->dob; 
-                $service->pob = $request->pob; 
-                $service->phone = $request->phone; 
-                $service->gender = $request->gender; 
-                $service->email = $request->email; 
-                $service->address = $request->address;
-                $service->emer_contact = $request->emer_contact; 
-                $service->referal = $request->referal;  
-                $service->foto = $request->file('foto')->getClientOriginalName(); 
-                $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName()); 
-                $service->save();
-            }
          
+        if($request->id == NULL || $request->id == ''){
+              
+                $service = new \App\Models\ServiceModel();
+                $service->service_code = $request->service_code;
+                $service->service_name = $request->service_name; 
+                $service->remark = $request->remark; 
+                $service->id_group = $request->id_group; 
+                $service->category = $request->category; 
+                $service->kategori = $request->kategori; 
+                $service->qty = $request->qty; 
+                $service->price = $request->price; 
+                $service->expire_service = $request->expire_service; 
+                $service->acc_revenue = $request->acc_revenue; 
+                $service->agreement_type = $request->agreement_type;  
+                $service->save(); 
  
-        }else{
-                $posting_foto = $request->file('foto');  
-                $destinationPath = 'uploads'; 
-                if($posting_foto == NULL || !$posting_foto || $posting_foto == ''){
+        }else{ 
                 \DB::table('service')->where('id',$request->id)->update([
-                    'phone' => $request->phone,
-                    'gender' => $request->gender,
-                    'email' => $request->email,
-                    'address' => $request->address,
-                    'emer_contact' => $request->emer_contact,
-                    'referal' => $request->referal,  
-                ]);
-               
-            }else{
-                \DB::table('service')->where('id',$request->id)->update([
-                    'title' => $request->title,
-                    'barcode' => $request->barcode,
+                    'service_code' => $request->service_code,
                     'service_name' => $request->service_name,
-                    'id_number' => $request->id_number,
-                    'dob' => $request->dob,
-                    'pob' => $request->pob,
-                    'phone' => $request->phone,
-                    'gender' => $request->gender,
-                    'email' => $request->email,
-                    'address' => $request->address,
-                    'emer_contact' => $request->emer_contact,
-                    'referal' => $request->referal,
-                    'foto' => $request->file('foto')->getClientOriginalName(), 
-                ]);
-                $posting_foto->move($destinationPath,$posting_foto->getClientOriginalName());
-            }
-            
+                    'remark' => $request->remark,
+                    'id_group' => $request->id_group,
+                    'category' => $request->category,
+                    'kategori' => $request->kategori,
+                    'qty' => $request->qty,
+                    'price' => $request->price,
+                    'expire_service' => $request->expire_service,
+                    'acc_revenue' => $request->acc_revenue,
+                    'agreement_type' => $request->agreement_type 
+                ]);  
         }
       
     }
 
     public function datalist(Request $request){ 
         if ($request->ajax()) {
-            $data = ServiceModel::latest()->get();
+            $data = ServiceModel::getlist();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="'.url('/service_kartu/'.$row->id).'" target="_blank" class="edit btn btn-warning btn-sm"> Kartu</a> <a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
+                    $actionBtn = '<a href="javascript:void(0)" onclick="UbahData('.$row->id.');" class="edit btn btn-success btn-sm"> Edit</a> 
                     <a href="javascript:void(0)" onclick="DeleteData('.$row->id.');" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
@@ -112,9 +71,12 @@ class ServiceController extends Controller
         }
     }
 
-    public function getdata(){
-        
+    public function get_data(Request $request){
+        $id = $request->id;
+        $service = ServiceModel::where('id',$id)->first();
+        return $service;
     }
+    
 
     public function destroy(Request $request){
         $id  = $request->id;
@@ -127,21 +89,44 @@ class ServiceController extends Controller
         $service->delete();
 
     } 
-    public function add_form(){
-        echo(rand(50000,80000));
-    }
-
-    public function get_data(Request $request){
-        $id = $request->id;
-        $service = ServiceModel::where('id',$id)->first();
-        return $service;
-    }
     
+
+  
     public function kartu($id){
         $data = ServiceModel::findOrfail($id); 
         return view ('kartu',['data'=>$data]);
-        // $pdf = PDF::loadView('kartu');
-       
-        // return $pdf->download('kartu.pdf'); 
+     
     }
+
+    public function getmax($param = '') {
+        $data = ServiceModel::get_no(); 
+        $lastid = $data[0]->id; 
+
+        if($lastid == '') { // bila data kosong
+            $ID = $param . "0000001"; 
+        }else {
+            $MaksID = $lastid;
+            $MaksID++;
+            if ($MaksID < 10)
+                $ID = $param . "000000" . $MaksID;
+            else if ($MaksID < 100)
+                $ID = $param . "00000" . $MaksID;
+            else if ($MaksID < 1000)
+                $ID = $param . "0000" . $MaksID;
+            else if ($MaksID < 10000)
+                $ID = $param . "000" . $MaksID;
+            else if ($MaksID < 100000)
+                $ID = $param . "00" . $MaksID;
+            else if ($MaksID < 1000000)
+                $ID = $param . "0" . $MaksID;
+            else
+                $ID = $MaksID;
+        }
+
+        return $ID;
+    }  	
+
+    public function add_form(){
+        echo $this->getmax();
+     }
 }

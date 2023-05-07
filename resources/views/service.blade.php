@@ -9,7 +9,7 @@
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
-                           Member
+                           Service
                         </h1>
                         <div class="page-header-subtitle">Halaman untuk me-manage data service</div>
                     </div>
@@ -21,7 +21,7 @@
     <!-- Main page content-->
     <div class="container-xl px-4 mt-n10">
         <div class="card">
-            <div class="card-header">Master Member</div>
+            <div class="card-header">Master Service</div>
                 <div class="card-body">
 
                     <button class="btn btn-primary" onclick="AddData();"> 
@@ -34,9 +34,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Barcode</th>
-                                <th>Member Name</th>
-                                <th>Email</th> 
+                                <th>Service Code</th>
+                                <th>Service Name</th>
+                                <th>Group</th> 
+                                <th>Price</th> 
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -65,105 +66,92 @@
                         <input type="hidden" name="id" id="id">
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Barcode</label>
-                            <input class="form-control" id="barcode" readonly="readonly" name="barcode" type="text"  >
-
-                            {{-- <div class="mb-3">{!! DNS1D::getBarcodeHTML('4445645656', 'PHARMA') !!}</div> --}}
+                            <label class="small mb-1" for="inputUsername">Service Code</label>
+                            <input class="form-control" id="service_code" readonly="readonly" name="service_code" type="text"  > 
+                
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
-                            <!-- Form Group (first name)-->
+                            
+                            <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">Title</label>
-                                <select class="form-control" id="title" name="title">
-                                    <option value="" selected="selected">--Select--</option>
-                                    <option value="1">Mr</option>
-                                    <option value="2">Mrs</option> 
-                                </select>
+                                <label class="small mb-1" for="inputLastName">Service Name</label>
+                                <input class="form-control onlytext" id="service_name" name="service_name" type="text">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Member name</label>
-                                <input class="form-control onlytext" id="service_name" name="service_name" type="text">
+                                <label class="small mb-1" for="inputLastName">Remark</label>
+                                <input class="form-control onlytext" id="remark" name="remark" type="text">
                             </div>
                         </div>
-                        <!-- Form Row        -->
-                        <div class="row gx-3 mb-3">
-                            <!-- Form Group (organization name)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputOrgName">Identity Number</label>
-                                <input class="form-control" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="id_number" name="id_number" type="text" >
-                            </div>
-                            <!-- Form Group (location)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Date of Birth</label>
-                                <input class="form-control" id="dob" name="dob" type="date" >
-                            </div>
-                        </div>
-                        
                         <!-- Form Row-->
-                        <div class="row gx-3 mb-3">
+                          <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Place Of Birth</label>
-                                <input class="form-control onlytext" id="pob" name="pob" type="text"  >
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Category</label>
+                                    <select class="form-control" name="category" id="category">
+                                        <option value="" selected="selected">--Select--</option> 
+                                        <option value="1">Service</option> 
+                                        <option value="2">Barang</option> 
+                                    </select>
                             </div>
-                            <!-- Form Group (birthday)-->
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Group</label>
+                                    <select class="form-control" name="id_group" id="id_group">
+                                    @foreach ($group as $key=>$value)
+                                        <option value="{{ $value['id'] }}"> {{ $value['group_name'] }} </option>
+                                    @endforeach
+                                    </select>
+                            </div> 
+                        </div> 
+                         <!-- Form Row-->
+                         <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Kategori</label>
+                                    <select class="form-control" name="kategori" id="kategori">
+                                        <option value="" selected="selected">--Select--</option> 
+                                        <option value="1">Per Kedatangan</option> 
+                                        <option value="2">Per Session</option> 
+                                    </select>
+                            </div>
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Phone </label>
-                                <input class="form-control" id="phone" type="text" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="phone" >
+                                <label class="small mb-1" for="inputLastName">Qty</label>
+                                <input class="form-control " id="qty" name="qty" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"  type="text">
                             </div>
                         </div> 
                         <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Gender</label>
-                                    <select class="form-control" name="gender" id="gender">
-                                        <option value="" selected="selected">--Select--</option>
-                                        <option value="1">Pria</option>
-                                        <option value="2">Wanita</option> 
-                                    </select>
-                                </div>
-                                <!-- Form Group (birthday)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Email </label>
-                                    <input class="form-control onlyemail" id="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" type="text" name="email" >
-                                    <div id="valid"></div>
-                                </div>
-                        </div>
-                        <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Emergency Contact</label>
-                                    <input class="form-control" name="emer_contact" id="emer_contact" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" type="text">
-                                </div>
-                                <!-- Form Group (birthday)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputBirthday">Referal </label>
-                                    <input class="form-control" id="referal" type="text" name="referal">
-                                </div>
-                        </div>
-                        <!-- Form Group (username)-->
-                        
-
-                          <!-- Form Row-->
                           <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Address</label>
-                                <input class="form-control" name="address" id="address" type="text">
+                            <div class="col-md-6"> 
+                            <label class="small mb-1" for="inputLastName">Price</label>
+                                <input class="form-control " id="price" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"  name="price" type="text">
                             </div>
-                            <!-- Form Group (birthday)-->
                             <div class="col-md-6">
-                                <div id="pict_view"></div>
-                                <label class="small mb-1 btn btn-danger btn-xs" >Photo (*max 5 MB - JPG | JPEG | PNG) </label>
-                                <input type="file" name="foto" id="foto" class="form-control">
+                                <label class="small mb-1" for="inputLastName">Expire Service/Package</label>
+                                <input class="form-control " id="expire_service" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="expire_service" type="text">
                             </div>
-                         </div>
-
-                        
+                        </div> 
+                           <!-- Form Row-->
+                           <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Acc Revenue</label>
+                                    <select class="form-control" name="acc_revenue" id="acc_revenue">
+                                        <option value="" selected="selected">--Select--</option> 
+                                        <option value="1">Pendapatan Fitnes & Gym</option> 
+                                        <option value="2">Penjualan Item</option> 
+                                    </select>
+                            </div>
+                            <div class="col-md-6"> 
+                                    <label class="small mb-1" for="inputLastName">Aggrement Type</label>
+                                    <select class="form-control" name="agreement_type" id="agreement_type">
+                                        <option value="" selected="selected">--Select--</option> 
+                                        <option value="1">None</option> 
+                                        <option value="2">License</option> 
+                                    </select>
+                            </div>
+                        </div> 
                     
                        
                     </form>
@@ -215,37 +203,14 @@
 </main>
 <script>
     $(document).ready(function () {
-
-        $('#foto').bind('change', function() {
-            if(this.files[0].size > 5000000) {
-                alert("File maksimum yang diizinkan 5MB!!");
-                $(this).val('');
-            }
-
-            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
-            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                alert("File yang diizinkan hanya: "+fileExtension.join(', ')+" ! ");
-            }
-            //this.files[0].size gets the size of your file.
-            // alert(this.files[0].size);
-
-        });
-
-        $('.onlyemail').on('keypress', function(){
-            var valid = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(this.value) && this.value.length;
-            if(!valid){
-                $(this).addClass('is-invalid');
-            }else{
-                $(this).removeClass('is-invalid');
-            } 
-        }); 
+  
 
         $(".onlytext").keypress(function(e) {
                     var key = e.keyCode;
                     if (key >= 48 && key <= 57) {
                         e.preventDefault();
                     }
-                    // $(this).addClass('is-invalid');
+                     
                 });
 
         $('#example').DataTable({
@@ -254,9 +219,10 @@
             ajax: "{{ route('service_list') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'barcode', name: 'barcode'},
+                {data: 'service_code', name: 'service_code'},
                 {data: 'service_name', name: 'service_name'},
-                {data: 'email', name: 'email'}, 
+                {data: 'group_name', name: 'group_name'},
+                {data: 'price', name: 'price'}, 
                 {
                     data: 'action', 
                     name: 'action', 
@@ -275,22 +241,19 @@
 
     function AddData(){
         clearinput();
-         
+        $.get('{{ route('service_add_form') }}',function(result){
+            console.log(result);
+            $("#service_code").val(result);
+        });
         $('#myModal').modal('show');  
     }
-
-    function isEmail(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email);
-    }
-
-
+ 
     function SimpanData(){
          
         var form = $('#my-form')[0]; 
         var data = new FormData(form);  
-        var email = $("#email").val();
-        if(isEmail(email)){
+       
+       
             $.ajax({ 
             type: "POST", 
             enctype: 'multipart/form-data', 
@@ -315,10 +278,7 @@
                 clearinput();
             } 
         }); 
-        }else{
-            alert('Email tidak valid!');
-            $(".onlyemail").focus().addClass('is-invalid');
-        }
+       
       
     }
 
@@ -358,29 +318,19 @@
             {  
                 // console.log(data);
                 $("#id").val(data.id);
-                $("#barcode").val(data.barcode);
-                $("#title").val(data.title);
-                $("#service_name").val(data.service_name); 
+                $("#service_code").val(data.service_code);
+                $("#service_name").val(data.service_name);
+                $("#remark").val(data.remark); 
 
-                $("#id_number").val(data.id_number);
-                $("#dob").val(data.dob);
-                $("#pob").val(data.pob);
-                $("#phone").val(data.phone);
-                $("#gender").val(data.gender);
+                $("#id_group").val(data.id_group);
+                $("#category").val(data.category);
+                $("#kategori").val(data.kategori);
+                $("#qty").val(data.qty);
+                $("#price").val(data.price);
 
-                $("#email").val(data.email);
-                $("#address").val(data.address);
-                $("#emer_contact").val(data.emer_contact);
-                $("#referal").val(data.referal);
-
-                if(data.foto != null || data.foto != ''){
-                    image = new Image();
-                    image.src = '{{ asset('uploads/') }}/'+data.foto;
-                    image.style.width = '50%';
-                    image.style.height = '50%';  
-                    $("#pict_view").empty().append(image);
-                    $("#foto").css({"margin-top":"5%"})
-                } 
+                $("#expire_service").val(data.expire_service);
+                $("#acc_revenue").val(data.acc_revenue);
+                $("#agreement_type").val(data.agreement_type);  
             } 
         });
 }
