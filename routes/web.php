@@ -13,6 +13,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\POSController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaymentTypeController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
  Route::get('/', function () {
@@ -25,7 +28,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
  Route::group(['middleware' => ['auth']], function() { 
         Route::get('/home', [HomeController::class,'index'])->name('home'); 
      
-     //master-member
+      //master-member
         Route::get('/member',[MemberController::class,'index'])->name('member');
         Route::get('/member_list',[MemberController::class,'datalist'])->name('member_list');
         Route::post('/member_save',[MemberController::class,'save'])->name('member_save');
@@ -40,6 +43,21 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
         Route::post('/bank_save',[BankController::class,'save'])->name('bank_save');
         Route::post('/bank_destroy',[BankController::class,'destroy'])->name('bank_destroy');
         Route::post('/bank_get_data',[BankController::class,'get_data'])->name('bank_get_data');
+
+
+      //master-category
+        Route::get('/category',[CategoryController::class,'index'])->name('category');
+        Route::get('/category_list',[CategoryController::class,'datalist'])->name('category_list');
+        Route::post('/category_save',[CategoryController::class,'save'])->name('category_save');
+        Route::post('/category_destroy',[CategoryController::class,'destroy'])->name('category_destroy');
+        Route::post('/category_get_data',[CategoryController::class,'get_data'])->name('category_get_data');
+
+      //master-payment_type
+        Route::get('/payment_typpe',[PaymentTypeController::class,'index'])->name('payment_type');
+        Route::get('/payment_type_list',[PaymentTypeController::class,'datalist'])->name('payment_type_list');
+        Route::post('/payment_type_save',[PaymentTypeController::class,'save'])->name('payment_type_save');
+        Route::post('/payment_type_destroy',[PaymentTypeController::class,'destroy'])->name('payment_type_destroy');
+        Route::post('/payment_type_get_data',[PaymentTypeController::class,'get_data'])->name('payment_type_get_data');
 
       //master-uom
         Route::get('/uom',[UomController::class,'index'])->name('uom');
@@ -92,6 +110,15 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
       Route::get('/service_add_form',[ServiceController::class,'add_form'])->name('service_add_form');
       // Route::get('/service_kartu/{id}',[ServiceController::class,'kartu'])->name('member_kartu');
       Route::post('/service_get_data',[ServiceController::class,'get_data'])->name('service_get_data');
+
+      //point of sale
+      Route::get('/pos',[POSController::class,'index'])->name('pos');
+      Route::get('/pos_list',[POSController::class,'datalist'])->name('pos_list');
+      Route::post('/pos_save',[POSController::class,'save'])->name('pos_save');
+      Route::post('/pos_destroy',[POSController::class,'destroy'])->name('pos_destroy');
+      Route::get('/pos_add_form',[POSController::class,'add_form'])->name('pos_add_form');
+      // Route::get('/pos_kartu/{id}',[POSController::class,'kartu'])->name('member_kartu');
+      Route::post('/pos_get_data',[POSController::class,'get_data'])->name('pos_get_data');
 
 
  });

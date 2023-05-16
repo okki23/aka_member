@@ -94,6 +94,8 @@
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages"> 
                                     <a class="nav-link" href="{{ route('member') }}">Member</a>
                                     <a class="nav-link" href="{{ route('service') }}">Service</a>
+                                    <a class="nav-link" href="{{ route('category') }}">Category</a>
+                                    <a class="nav-link" href="{{ route('payment_type') }}">Payment Type</a>
                                     <a class="nav-link" href="{{ route('pengguna') }}">User</a>
                                     <a class="nav-link" href="{{ route('instruktur') }}">Instruktur</a>
                                   
@@ -111,7 +113,8 @@
                             </a>
                             <div class="collapse" id="collapseDashboards2" data-bs-parent="#accordionSidenav">
                                 <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages"> 
-                                    <a class="nav-link" href="dashboard-2.html">POS</a>
+                                    <a class="nav-link" href="{{ route('pos') }}">POS</a>
+                                    <a class="nav-link" href="{{ route('pos') }}">Log Transaksi</a>
                                     <a class="nav-link" href="dashboard-3.html">Member In/Out</a>                                    
                                 </nav>
                             </div>
