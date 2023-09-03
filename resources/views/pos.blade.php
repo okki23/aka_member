@@ -114,6 +114,11 @@
                     </tr>
                   </table>
 
+                  <br>
+                  <hr>
+                  <button class="btn btn-success btn-block"> Checkout </button>
+                  <button class="btn btn-danger btn-block"> Cancel </button>
+
                 </div>
         </div>
     </div>
@@ -247,7 +252,7 @@
 
         $(".getqty").each(function(){
             var isi = $(this).val();
-            // var itung_total = isi*
+
             console.log(isi + ' - ' + price);
         });
 
