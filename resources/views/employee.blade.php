@@ -13,7 +13,7 @@
                         </h1>
                         <div class="page-header-subtitle">Halaman untuk me-manage data Employee / Pegawai</div>
                     </div>
- 
+
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="card-header">Master Employee</div>
                 <div class="card-body">
 
-                    <button class="btn btn-primary" onclick="AddData();"> 
+                    <button class="btn btn-primary" onclick="AddData();">
                         <div class="nav-link-icon"><i data-feather="archive"></i></div> &nbsp;
                         Tambah Data
                      </button>
@@ -36,13 +36,13 @@
                                 <th>#</th>
                                 <th>ID Employee</th>
                                 <th>Employee Name</th>
-                                <th>Email</th> 
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                      
+
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -57,7 +57,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            
+
 
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" id="my-form">
@@ -88,87 +88,87 @@
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Gender</label>
-                                <select class="form-control" name="gender" id="gender"> 
+                                <select class="form-control" name="gender" id="gender">
                                     <option value="1">Pria</option>
-                                    <option value="2">Wanita</option> 
+                                    <option value="2">Wanita</option>
                                 </select>
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Marital Status</label>
                                 <select class="form-control" name="marital_status" id="marital_status">
-                               
+
                                     <option value="1">TK (Tidak Kawin)</option>
-                                    <option value="2">K0 (Kawin) </option> 
-                                    <option value="2">K1 (Kawin Anak 1)</option> 
+                                    <option value="2">K0 (Kawin) </option>
+                                    <option value="2">K1 (Kawin Anak 1)</option>
                                     <option value="4">K2 (Kawin Anak 2)</option>
-                                    <option value="5">CK (Cerai Kawin)</option> 
+                                    <option value="5">CK (Cerai Kawin)</option>
                                     <option value="6">CM (Cerai Meninggal)</option>
                                 </select>
                             </div>
                         </div>
-                        
+
                           <!-- Form Row-->
                           <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Job Title</label>
-                                    <input class="form-control" id="job_title" name="job_title" type="text"> 
+                                    <input class="form-control" id="job_title" name="job_title" type="text">
                             </div>
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Status</label>
                                     <select name="status" id="status" class="form-control">
-                                      
+
                                         <option value="1">Aktif</option>
                                         <option value="2">Tidak Aktif</option>
                                     </select>
-                            </div> 
-                        </div> 
+                            </div>
+                        </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Address</label>
-                                    <input class="form-control" id="address" name="address" type="text"> 
+                                    <input class="form-control" id="address" name="address" type="text">
                             </div>
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Join Date</label>
                                     <input class="form-control" id="join_date" name="join_date" type="date">
-                              
-                            </div> 
-                        </div> 
+
+                            </div>
+                        </div>
                         <!-- Form Row-->
                           <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">NPWP (Number Only)</label>
-                                    <input class="form-control" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="npwp" name="npwp" type="text"> 
+                                    <input class="form-control" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" id="npwp" name="npwp" type="text">
                             </div>
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Bank</label>
                                     <select class="form-control" name="id_bank" id="id_bank">
                                     @foreach ($databank as $key=>$value)
                                         <option value="{{ $value['id'] }}"> {{ $value['bank'] }} </option>
                                     @endforeach
                                     </select>
-                            </div> 
-                        </div> 
+                            </div>
+                        </div>
                         <!-- Form Row-->
                             <div class="row gx-3 mb-3">
                                 <!-- Form Group (phone number)-->
-                                <div class="col-md-6"> 
+                                <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Account Bank</label>
-                                    <input class="form-control" id="account_bank" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="account_bank" type="text"> 
+                                    <input class="form-control" id="account_bank" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="account_bank" type="text">
                                 </div>
                                 <!-- Form Group (birthday)-->
-                                <div class="col-md-6"> 
+                                <div class="col-md-6">
                                     <label class="small mb-1" for="inputLastName">Phone</label>
-                                    <input class="form-control" id="phone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="phone" type="text"> 
+                                    <input class="form-control" id="phone" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" name="phone" type="text">
                                 </div>
                         </div>
-                         
+
                         <!-- Form Group (username)-->
-                        
+
 
                           <!-- Form Row-->
                           <div class="row gx-3 mb-3">
@@ -178,10 +178,10 @@
                                 <input class="form-control onlyemail" name="email" id="email" type="text">
                             </div>
                             <!-- Form Group (birthday)-->
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Foto</label>
                                 <input type="file" name="foto" id="foto" class="form-control">
-                        </div> 
+                        </div>
                          </div>
 
                          <div class="mb-3">
@@ -191,8 +191,8 @@
                             <input type="file" name="foto" id="foto" class="form-control">
                           --}}
                         </div>
-                    
-                       
+
+
                     </form>
                 </div>
 
@@ -208,18 +208,18 @@
                 <div class="nav-link-icon"><i data-feather="database"></i></div> &nbsp;
                 Simpan
             </button>
-            </div> 
+            </div>
         </div>
         </div>
     </div>
 
-    
+
     <div style="position: absolute; bottom: 1rem; right: 1rem;">
         <!-- Toast -->
         <div class="toast" id="toastSave" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <div class="toast-header bg-primary text-white">
                 <i data-feather="bell"></i>
-                <strong class="mr-auto">  &nbsp; Pesan Sistem</strong> 
+                <strong class="mr-auto">  &nbsp; Pesan Sistem</strong>
                 <button class="ml-2 mb-1 btn-close" type="button" data-bs-dismiss="toast" aria-label="Close">                                                                </button>
             </div>
             <div class="toast-body">Data yang diinput sudah berhasil di simpan ke database.</div>
@@ -231,14 +231,14 @@
         <div class="toast" id="toastDel" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <div class="toast-header bg-primary text-white">
                 <i data-feather="bell"></i>
-                <strong class="mr-auto"> &nbsp; Pesan Sistem</strong> 
+                <strong class="mr-auto"> &nbsp; Pesan Sistem</strong>
                 <button class="ml-2 mb-1 btn-close" style="float:right; margin-right:10px;" type="button" data-bs-dismiss="toast" aria-label="Close">                                                                </button>
             </div>
             <div class="toast-body bg-white text-black">Data yang terpilih sudah berhasil di hapus dari database.</div>
         </div>
     </div>
- 
-    
+
+
 </main>
 <script>
     $(document).ready(function () {
@@ -264,8 +264,8 @@
                 $(this).addClass('is-invalid');
             }else{
                 $(this).removeClass('is-invalid');
-            } 
-        }); 
+            }
+        });
 
         $(".onlytext").keypress(function(e) {
                     var key = e.keyCode;
@@ -283,16 +283,16 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'employee_code', name: 'employee_code'},
                 {data: 'employee_name', name: 'employee_name'},
-                {data: 'email', name: 'email'}, 
+                {data: 'email', name: 'email'},
                 {
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: true, 
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
                     searchable: true
                 },
             ]
         });
-    }); 
+    });
 
     $.ajaxSetup({
         headers: {
@@ -306,7 +306,7 @@
             console.log(result);
             $("#employee_code").val(result);
         });
-        $('#myModal').modal('show');  
+        $('#myModal').modal('show');
     }
 
     function isEmail(email) {
@@ -316,45 +316,45 @@
 
 
     function SimpanData(){
-         
-        var form = $('#my-form')[0]; 
-        var data = new FormData(form);  
+
+        var form = $('#my-form')[0];
+        var data = new FormData(form);
         var email = $("#email").val();
         var status = $("#status").val();
         if(isEmail(email) || empty(status) || status==''){
-            $.ajax({ 
-            type: "POST", 
-            enctype: 'multipart/form-data', 
-            url:"{{ route('employee_save') }}", 
-            data: data, 
-            processData: false, 
-            contentType: false, 
-            cache: false, 
-            timeout: 800000, 
-            success: function (data) { 
-                console.log("SUCCESS : ", data); 
-                $('#myModal').modal('hide'); 
+            $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url:"{{ route('employee_save') }}",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 800000,
+            success: function (data) {
+                console.log("SUCCESS : ", data);
+                $('#myModal').modal('hide');
                 $('#example').DataTable().ajax.reload();
                 $("#toastSave").toast("show");
                 clearinput();
             },
 
-            error: function (e) { 
-                console.log("ERROR : ", e);  
-                $('#myModal').modal('hide'); 
+            error: function (e) {
+                console.log("ERROR : ", e);
+                $('#myModal').modal('hide');
                 $('#example').DataTable().ajax.reload()
                 clearinput();
-            } 
-        }); 
+            }
+        });
         }else{
             alert('Email tidak valid!');
             $(".onlyemail").focus().addClass('is-invalid');
         }
-      
+
     }
 
     function clearinput(){
-        $("input").val(""); 
+        $("input").val("");
         $("#pict_view").empty();
     }
 
@@ -365,10 +365,10 @@
             type: "POST",
             data: {id:id},
             success: function(data)
-            { 
-               $('#example').DataTable().ajax.reload();  
+            {
+               $('#example').DataTable().ajax.reload();
                $("#toastDel").toast("show");
-			    
+
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -377,43 +377,43 @@
         });
         }
     }
-    
-    function UbahData(id){ 
-        $('#myModal').modal('show');  
+
+    function UbahData(id){
+        $('#myModal').modal('show');
         $.ajax({
             url : "{{ route('employee_get_data') }}",
             type: "POST",
             data: {id:id},
             success: function(data)
-            {  
+            {
                 // console.log(data);
                 $("#id").val(data.id);
                 $("#employee_code").val(data.employee_code);
                 $("#employee_name").val(data.employee_name);
-                $("#employee_name").val(data.employee_name);  
+                $("#employee_name").val(data.employee_name);
                 $("#birth_date").val(data.birth_date);
                 $("#gender").val(data.gender);
                 $("#marital_status").val(data.marital_status);
                 $("#address").val(data.address);
-                $("#join_date").val(data.join_date); 
+                $("#join_date").val(data.join_date);
                 $("#job_title").val(data.job_title);
-                $("#status").val(data.status); 
+                $("#status").val(data.status);
                 $("#npwp").val(data.npwp);
                 $("#id_bank").val(data.id_bank);
                 $("#account_bank").val(data.account_bank);
                 $("#phone").val(data.phone);
                 $("#email").val(data.email);
-                $("#id_group").val(data.id_group); 
+                $("#id_group").val(data.id_group);
 
                 if(data.foto != null || data.foto != ''){
                     image = new Image();
                     image.src = '{{ asset('uploads/') }}/'+data.foto;
                     image.style.width = '50%';
-                    image.style.height = '50%';  
+                    image.style.height = '50%';
                     $("#pict_view").empty().append(image);
                     $("#foto").css({"margin-top":"5%"})
-                } 
-            } 
+                }
+            }
         });
 }
 
