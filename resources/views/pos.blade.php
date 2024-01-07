@@ -129,6 +129,15 @@
                             <td colspan="5">Sub TOTAL</td>
                             <td id="subtotal"></td>
                         </tr>
+                        <tr>
+                            <td colspan="5">Diskon</td>
+                            <td><input type="text" class="form-control" id="diskonset" value="0">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">Total Bayar</td>
+                            <td id="harusbayar"></td>
+                        </tr>
                     </table>
 
                     <br>
@@ -239,13 +248,65 @@
 
     </main>
     <script>
-        function ParsingKasir() {
+        $("#diskonset").on("keyup", function() {
+            const tots = parseInt($("#subtotal").text());
+            const result = (tots - parseInt($(this).val()));
+            console.log(result);
+            $("#harusbayar").html(result)
+        });
 
-            $('#item_list > tr  > td').each(function() {
-                $(this).find("td:gt(0)").each(function() {
-                    alert($(this).html());
-                });
+        function ParsingKasir() {
+            // $('#item_list tr td .servicecode').each(function() {
+            //     var texto = $(this).text();
+            //     console.log(texto);
+            // });
+
+            // var los = $('#item_list tr td').find("tr:eq(2)").html();
+            // console.log(los);
+
+            var data = Array();
+
+            // $('#item_list tr td').each(function(i, v) {
+            //     header[i] = $(this).text();
+            //     console.log(header[i][2]);
+            // })
+
+            // $('#item_list tr td').each(function(i, v) {
+            //     data[i] = Array();
+            //     $(this).each(function(ii, vv) {
+            //         data[i][ii] = $(this).text();
+            //         console.log(data[i][ii]);
+            //     });
+            // })
+
+            var rows = $('#item_list tr td').map(function() {
+                return this.innerHTML;
+            }).get();
+
+            $.ajax({
+                url: "{{ route('cetakinv') }}",
+                data: {
+                    sc: rows[1],
+                    qty: 1,
+                    price: rows[2]
+                },
+                type: "POST",
+                success: function(data) {
+                    window.open('http://aka_member.test/cetakinv', '_blank');
+                }
             });
+
+
+
+
+
+
+
+            // $('#item_list > tr  > td').each(function() {
+            //     $(this).find(".servicecode").each(function() {
+            //         console.log($(this).html());
+            //     });
+            // });
 
         }
         $(function() {
@@ -451,7 +512,7 @@
                         result.qty +
                         '" min="1" step="1"></td><td class="discount">0</td></td><td class="total">' + parseInt(
                             result.price * result.qty) +
-                        '<form name="parsingankasir"> <input type="hidden" name="servicecodepost[]"> <input type="hidden" name="servicenamepost[]"> <input type="hidden" name="pricepost[]"> <input type="hidden" name="qtypost[]"> <input type="hidden" name="discountpost[]"> <input type="hidden" name="totalpost[]"> </form></td></tr>';
+                        '</td></tr>';
                     $("#item_list").append(isian);
                     calc();
                 }
