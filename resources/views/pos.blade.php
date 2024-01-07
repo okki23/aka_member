@@ -451,7 +451,7 @@
                         result.qty +
                         '" min="1" step="1"></td><td class="discount">0</td></td><td class="total">' + parseInt(
                             result.price * result.qty) +
-                        '<form name="parsingankasir"> <input type="text" name="servicecodepost[]"> <input type="text" name="servicenamepost[]"> <input type="text" name="pricepost[]"> <input type="text" name="qtypost[]"> <input type="text" name="discountpost[]"> <input type="text" name="totalpost[]"> </form></td></tr>';
+                        '<form name="parsingankasir"> <input type="hidden" name="servicecodepost[]"> <input type="hidden" name="servicenamepost[]"> <input type="hidden" name="pricepost[]"> <input type="hidden" name="qtypost[]"> <input type="hidden" name="discountpost[]"> <input type="hidden" name="totalpost[]"> </form></td></tr>';
                     $("#item_list").append(isian);
                     calc();
                 }
