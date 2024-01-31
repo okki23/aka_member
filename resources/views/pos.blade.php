@@ -126,7 +126,7 @@
                     </table>
                     <table class="table table-subco">
                         <tr>
-                            <td colspan="5">Sub TOTAL</td>
+                            <td colspan="5">Sub Total</td>
                             <td id="subtotal"></td>
                         </tr>
                         <tr>
@@ -135,9 +135,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5">Total Bayar</td>
+                            <td colspan="5">Harus Dibayar</td>
                             <td id="harusbayar"></td>
                         </tr>
+                        <tr>
+                            <td colspan="5">Jumlah Bayar</td>
+                            <td><input type="text" class="form-control" id="dibayar" value="0"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="5">Kembali</td>
+                            <td id="kembali">0</td>
+                        </tr>
+
                     </table>
 
                     <br>
@@ -246,67 +256,100 @@
         </div>
 
 
+        <div class="modal" id="COModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Checkout</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Total Bayar : </h3>
+                        <div id="hasilco">adads</div>
+                        <hr>
+                        <label for="tipebayar">Jenis Pembayaran</label>
+                        <select name="tipebayar" id="tipebayar" class="form-control">
+                            <option value="0">-- Pilih --</option>
+                            <option value="1">Cash</option>
+                            <option value="2">Debit</option>
+                            <option value="3">CC BCA</option>
+                            <option value="4">CC Mandiri</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </main>
     <script>
+        $("#dibayar").keyup(function() {
+            var bayaran = $("#harusbayar").html()
+            var totals = (parseInt(bayaran) - parseInt($(this).val()));
+            $("#kembali").html(totals);
+            console.log(totals)
+        });
+        $("#tipebayar").change(function() {
+            var angka = $("#harusbayar").html();
+            var dsc = 0;
+            // alert($(this).val());
+            if ($(this).val() == 2 || $(this).val() == 3) {
+                dsc = parseFloat($(this).val() * 2 / 100);
+                calc = parseFloat(angka * dsc);
+                console.log(calc);
+            }
+        });
+        // var format = function(num) {
+        //     var str = num.toString().replace("", ""),
+        //         parts = false,
+        //         output = [],
+        //         i = 1,
+        //         formatted = null;
+        //     if (str.indexOf(".") > 0) {
+        //         parts = str.split(".");
+        //         str = parts[0];
+        //     }
+        //     str = str.split("").reverse();
+        //     for (var j = 0, len = str.length; j < len; j++) {
+        //         if (str[j] != ",") {
+        //             output.push(str[j]);
+        //             if (i % 3 == 0 && j < (len - 1)) {
+        //                 output.push(",");
+        //             }
+        //             i++;
+        //         }
+        //     }
+        //     formatted = output.reverse().join("");
+        //     return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
+        // };
+
         $("#diskonset").on("keyup", function() {
             const tots = parseInt($("#subtotal").text());
             const result = (tots - parseInt($(this).val()));
             console.log(result);
-            $("#harusbayar").html(result)
+            $("#harusbayar").html(result);
         });
 
         function ParsingKasir() {
-            // $('#item_list tr td .servicecode').each(function() {
-            //     var texto = $(this).text();
-            //     console.log(texto);
-            // });
+            var harusbayar = $("#harusbayar").html();
 
-            // var los = $('#item_list tr td').find("tr:eq(2)").html();
-            // console.log(los);
-
-            var data = Array();
-
-            // $('#item_list tr td').each(function(i, v) {
-            //     header[i] = $(this).text();
-            //     console.log(header[i][2]);
-            // })
-
-            // $('#item_list tr td').each(function(i, v) {
-            //     data[i] = Array();
-            //     $(this).each(function(ii, vv) {
-            //         data[i][ii] = $(this).text();
-            //         console.log(data[i][ii]);
-            //     });
-            // })
-
-            var rows = $('#item_list tr td').map(function() {
-                return this.innerHTML;
-            }).get();
+            $('#COModel').modal('show');
+            $("#hasilco").html(harusbayar);
+            // console.log(lang);
 
             $.ajax({
                 url: "{{ route('cetakinv') }}",
                 data: {
-                    sc: rows[1],
-                    qty: 1,
-                    price: rows[2]
+                    lang: lang
                 },
                 type: "POST",
                 success: function(data) {
                     window.open('http://aka_member.test/cetakinv', '_blank');
                 }
             });
-
-
-
-
-
-
-
-            // $('#item_list > tr  > td').each(function() {
-            //     $(this).find(".servicecode").each(function() {
-            //         console.log($(this).html());
-            //     });
-            // });
 
         }
         $(function() {
@@ -497,6 +540,7 @@
 
         function ChooseService(id) {
             let isian = '';
+            var grandTotal = 0.00;
             let st = 0;
             $.ajax({
                 type: "POST",
@@ -505,16 +549,26 @@
                 },
                 url: "{{ route('service_get_data') }}",
                 success: function(result) {
-                    isian = '<tr><td class="servicecode">' + result.service_code + '</td><td>' + result
+                    isian = '<tr><td class="servicecode">' + result.service_code +
+                        ' <input type="hidden" name="idservices[]" value="' +
+                        result.service_code + '"> <input type="hidden" name="qtys[]" value="' +
+                        result.qty + '"> </td><td>' +
+                        result
                         .service_name +
                         '</td><td class="price">' + result.price +
                         '</td><td><input type="text" class="form-control quantity" name="quantity[]" value="' +
                         result.qty +
-                        '" min="1" step="1"></td><td class="discount">0</td></td><td class="total">' + parseInt(
+                        '" min="1" step="1"></td><td class="discount">0</td></td><td class="total"> ' +
+                        parseInt(
                             result.price * result.qty) +
                         '</td></tr>';
                     $("#item_list").append(isian);
-                    calc();
+                    $("#item_list > tr > td.total").each(function(k, v) {
+                        grandTotal += parseFloat(v.innerHTML);
+                        $("#subtotal").html(grandTotal);
+
+                    });
+
                 }
             })
         }

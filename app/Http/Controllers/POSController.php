@@ -22,9 +22,12 @@ class POSController extends Controller
 
     public function cetakinv(Request $request)
     {
-        $pegawai =  $request->sc;
-        $pdf = PDF::loadview('pos_inv', ['data' => $pegawai]);
-        return $pdf->download('laporan-pegawai-pdf');
+        // $lang = $_POST['lang'];
+        $lang = $request->post('lang');
+        dd($lang);
+        // $pegawai =  $request->sc;
+        // $pdf = PDF::loadview('pos_inv', ['data' => $pegawai]);
+        // return $pdf->download('laporan-pegawai-pdf');
         // if ($request->id == NULL || $request->id == '') {
         //     $bank = new \App\Models\BankModel();
         //     $bank->bank = $request->bank;
