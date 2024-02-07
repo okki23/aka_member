@@ -34,15 +34,15 @@
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">Faktur No</label>
-                                <input class="form-control" id="inputFirstName" type="text" readonly="readonly"
-                                    value="{{ $faktur }}">
+                                <label class="small mb-1" for="fakturno">Faktur No</label>
+                                <input class="form-control" id="fakturno" name="fakturno" type="text"
+                                    readonly="readonly" value="FP{{ $faktur }}">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Date Transcation</label>
-                                <input class="form-control" id="inputLastName" type="text" readonly="readonly"
-                                    value="{{ date('Y-m-d') }}">
+                                <input class="form-control" id="date_trans" name="date_trans" type="text"
+                                    readonly="readonly" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Marketing Referal</label>
-                                <select name="id_marketing" id="id_marketing" class="form-control">
+                                <select name="id_marketing_referal" id="id_marketing_referal" class="form-control">
                                     @foreach ($marketing_ref as $mf => $vmf)
                                         @if ($vmf->id != 1)
                                             <option value="{{ $vmf->id }}"> {{ $vmf->employee_name }} </option>
@@ -137,15 +137,6 @@
                         <tr>
                             <td colspan="5">Harus Dibayar</td>
                             <td id="harusbayar"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">Jumlah Bayar</td>
-                            <td><input type="text" class="form-control" id="dibayar" value="0"></td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="5">Kembali</td>
-                            <td id="kembali">0</td>
                         </tr>
 
                     </table>
@@ -264,17 +255,69 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h3>Total Bayar : </h3>
-                        <div id="hasilco">adads</div>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col order-1">
+                                    <label for="" style="font-size: 20px; font-weight:bold;"> Total Bayar :
+                                    </label>
+                                    <br>
+                                    <div id="hasilco" style="font-size: 30px; font-weight:bold;"></div>
+                                    <br>
+                                    <div id="sebutan" style="font-size: 20px; font-weight:bold;"></div>
+                                    <br>
+                                    <div id="result_bayar_page">
+                                        <label for=""> Jumlah Bayar</label>
+                                        <input type="text" class="form-control" id="dibayar" value="0">
+                                        <br>
+                                        <label for="" style="font-size: 20px; font-weight:bold; "> Kembali</label>
+                                        <h6 id="kembali" style="font-size: 30px; font-weight:bold;"></h6>
+                                    </div>
+                                </div>
+                                <div class="col order-5">
+                                    <label for="tipebayar">Jenis Pembayaran</label>
+                                    <select name="tipebayar" id="tipebayar" class="form-control">
+                                        <option value="0" selected="selected">-- Pilih --</option>
+                                        <option value="1">Cash</option>
+                                        <option value="2">Debit</option>
+                                        <option value="3">Credit Card</option>
+                                    </select>
+                                    <br>
+                                    <div id="select_cc">
+                                        <select name="selectcc" id="selectcc" class="form-control">
+                                            <option value="0" selected="selected">-- Pilih Kartu --</option>
+                                            <option value="1">BCA</option>
+                                            <option value="2">Mandiri</option>
+                                            <option value="3">HSBC</option>
+                                        </select>
+                                    </div>
+                                    <br>
+                                    <div id="select_dc">
+                                        <select name="selectdc" id="selectdc" class="form-control">
+                                            <option value="0" selected="selected">-- Pilih Kartu --</option>
+                                            <option value="1">BCA</option>
+                                            <option value="2">Mandiri</option>
+                                            <option value="3">BNI</option>
+                                            <option value="3">BRI</option>
+                                        </select>
+
+                                        <input type="hidden" name="totalccnya" id="totalccnya">
+                                        <input type="hidden" name="basicprice" id="basicprice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <hr>
-                        <label for="tipebayar">Jenis Pembayaran</label>
-                        <select name="tipebayar" id="tipebayar" class="form-control">
-                            <option value="0">-- Pilih --</option>
-                            <option value="1">Cash</option>
-                            <option value="2">Debit</option>
-                            <option value="3">CC BCA</option>
-                            <option value="4">CC Mandiri</option>
-                        </select>
+                        <div class="col-lg-12">
+                            <div class="row gx-3 mb-3">
+                                <button type="button" id="processpayment" onclick="ProcessPayment();"
+                                    class="btn btn-primary btn-block"> <i data-feather="shopping-cart"></i> &nbsp; Payment
+                                    Process</button>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -286,45 +329,133 @@
 
     </main>
     <script>
+        function ProcessPayment() {
+            var idservices = [];
+            fakturno = $("#fakturno").val();
+            id_member = $("#id_member").val();
+            id_member_referal = $("#id_member_referal").val();
+            id_marketing_referal = $("#id_marketing_referal").val();
+            visit_type = $("#visit_type").val();
+            tipebayar = $("#tipebayar").val();
+            diskonset = $("#diskonset").val();
+            date_trans = $("#date_trans").val();
+            hasilco = $("#hasilco").html();
+            dibayar = $("#dibayar").val();
+            kembali = $("#kembali").html();
+            selectdc = $("#selectdc").val();
+            selectcc = $("#selectcc").val();
+            totalccnya = $("#totalccnya").val();
+            basicprice = $("#basicprice").val();
+
+            $("input[name='idservices[]']").each(function() {
+                idservices.push(this.value);
+            });
+
+            console.log(idservices);
+            $.ajax({
+                url: "{{ route('cetakinv') }}",
+                data: {
+                    id_member_referal: id_member_referal,
+                    idservices: idservices,
+                    basicprice: basicprice,
+                    fakturno: fakturno,
+                    total_payment: hasilco,
+                    payment: dibayar,
+                    id_debit: selectdc,
+                    cc_charge: totalccnya,
+                    id_cc: selectcc,
+                    change_payment: kembali,
+                    diskon: diskonset,
+                    id_member: id_member,
+                    id_marketing_referal: id_marketing_referal,
+                    visit_type: visit_type,
+                    date_trans: date_trans,
+                    tipebayar: tipebayar
+                },
+                type: "POST",
+                success: function(data) {
+                    window.open('http://aka_member.test/cetakinv', '_blank');
+                }
+            });
+        }
         $("#dibayar").keyup(function() {
-            var bayaran = $("#harusbayar").html()
-            var totals = (parseInt(bayaran) - parseInt($(this).val()));
+            var hasilco = $("#hasilco").html()
+            var totals = (parseInt($(this).val())) - parseInt(hasilco);
             $("#kembali").html(totals);
             console.log(totals)
         });
         $("#tipebayar").change(function() {
             var angka = $("#harusbayar").html();
             var dsc = 0;
-            // alert($(this).val());
-            if ($(this).val() == 2 || $(this).val() == 3) {
+            var calc = 0;
+            var ccs = 0;
+            if ($(this).val() == 3) {
                 dsc = parseFloat($(this).val() * 2 / 100);
                 calc = parseFloat(angka * dsc);
-                console.log(calc);
+                $("#kembali").html(0);
+                $("#totalccnya").val(calc);
+
+                ccs = (parseFloat(angka) + parseFloat(calc));
+                $("#dibayar").val(ccs);
+                $.ajax({
+                    url: "{{ route('kekata') }}",
+                    data: {
+                        angka: ccs
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        console.log(data);
+                        $("#sebutan").html(data);
+                    }
+                });
+                $("#result_bayar_page").hide();
+                $("#hasilco").html(ccs);
+                $("#basicprice").val(angka);
+                $("#selectcc").show();
+                $("#selectdc").hide();
+            } else if ($(this).val() == 2) {
+                $("#result_bayar_page").hide();
+                $("#hasilco").html(angka);
+                $("#selectcc").hide();
+                $("#dibayar").val(angka);
+                $("#kembali").html(0);
+                $("#basicprice").val(angka);
+                $("#selectdc").show();
+
+                $.ajax({
+                    url: "{{ route('kekata') }}",
+                    data: {
+                        angka: $("#harusbayar").html()
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        console.log(data);
+                        $("#sebutan").html(data);
+                    }
+                });
+            } else {
+                $("#result_bayar_page").show();
+                $("#hasilco").html(angka);
+                $("#selectcc").hide();
+                $("#basicprice").val(angka);
+                $("#selectdc").hide();
+
+                $.ajax({
+                    url: "{{ route('kekata') }}",
+                    data: {
+                        angka: $("#harusbayar").html()
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        console.log(data);
+                        $("#sebutan").html(data);
+                    }
+                });
             }
+
+
         });
-        // var format = function(num) {
-        //     var str = num.toString().replace("", ""),
-        //         parts = false,
-        //         output = [],
-        //         i = 1,
-        //         formatted = null;
-        //     if (str.indexOf(".") > 0) {
-        //         parts = str.split(".");
-        //         str = parts[0];
-        //     }
-        //     str = str.split("").reverse();
-        //     for (var j = 0, len = str.length; j < len; j++) {
-        //         if (str[j] != ",") {
-        //             output.push(str[j]);
-        //             if (i % 3 == 0 && j < (len - 1)) {
-        //                 output.push(",");
-        //             }
-        //             i++;
-        //         }
-        //     }
-        //     formatted = output.reverse().join("");
-        //     return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
-        // };
+
 
         $("#diskonset").on("keyup", function() {
             const tots = parseInt($("#subtotal").text());
@@ -338,18 +469,44 @@
 
             $('#COModel').modal('show');
             $("#hasilco").html(harusbayar);
-            // console.log(lang);
 
             $.ajax({
-                url: "{{ route('cetakinv') }}",
+                url: "{{ route('kekata') }}",
                 data: {
-                    lang: lang
+                    angka: harusbayar
                 },
                 type: "POST",
                 success: function(data) {
-                    window.open('http://aka_member.test/cetakinv', '_blank');
+                    console.log(data);
+                    $("#sebutan").html(data);
                 }
             });
+
+            // var idservices = [];
+            // fakturno = $("#fakturno").val();
+            // id_member = $("#id_member").val();
+            // id_member_referal = $("#id_member_referal").val();
+            // id_marketing = $("#id_marketing").val();
+
+            // $("input[name='idservices[]']").each(function() {
+            //     idservices.push(this.value);
+            // });
+
+            // console.log(idservices);
+            // $.ajax({
+            //     url: "{{ route('cetakinv') }}",
+            //     data: {
+            //         id_member_referal: id_member_referal,
+            //         idservices: idservices,
+            //         fakturno: fakturno,
+            //         id_member: id_member,
+            //         id_marketing: id_marketing
+            //     },
+            //     type: "POST",
+            //     success: function(data) {
+            //         window.open('http://aka_member.test/cetakinv', '_blank');
+            //     }
+            // });
 
         }
         $(function() {
@@ -401,7 +558,9 @@
         }
 
         $(document).ready(function() {
-
+            $("#result_bayar_page").hide();
+            $("#selectcc").hide();
+            $("#selectdc").hide();
             $('#example').DataTable({
                 processing: true,
                 serverSide: true,
@@ -566,6 +725,7 @@
                     $("#item_list > tr > td.total").each(function(k, v) {
                         grandTotal += parseFloat(v.innerHTML);
                         $("#subtotal").html(grandTotal);
+                        $("#harusbayar").html(grandTotal);
 
                     });
 

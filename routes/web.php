@@ -122,4 +122,5 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('/pos_kartu/{id}',[POSController::class,'kartu'])->name('member_kartu');
     Route::post('/pos_get_data', [POSController::class, 'get_data'])->name('pos_get_data');
     Route::post('/cetakinv', [POSController::class, 'cetakinv'])->name('cetakinv');
+    Route::post('/kekata', [POSController::class, 'kekata'])->name('kekata');
 });
