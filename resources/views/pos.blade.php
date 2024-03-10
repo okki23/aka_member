@@ -69,7 +69,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        <img src="{{ asset('assets/img/aka.png') }}" alt="">
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
@@ -192,6 +192,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <table id="listservice">
                             <thead>
                                 <tr>
@@ -199,7 +200,7 @@
                                     <th>Service Name</th>
                                     <th>Category</th>
                                     <th>Unit</th>
-                                    <th>Price</th>
+                                    <th>Price</th>e
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -374,7 +375,8 @@
                 },
                 type: "POST",
                 success: function(data) {
-                    window.open('http://aka_member.test/cetakinv', '_blank');
+                    console.log(data);
+                    window.open('http://aka_member.test/invoice/' + fakturno, '_blank');
                 }
             });
         }

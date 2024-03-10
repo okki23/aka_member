@@ -21,6 +21,20 @@ class POSController extends Controller
         return view('pos', ['data' => $data, 'faktur' => $faktur, 'marketing_ref' => $marketing_ref, 'member_ref' => $member_ref]);
     }
 
+    public function print_invoice(Request $request)
+    {
+        echo 1;
+    }
+
+    public function invoice(Request $request)
+    {
+        $faktur = request()->segment(2);
+        // echo $faktur;
+
+        $invoice = \DB::table('t_pos')->where('no_trans', '=', $faktur)->first();
+        $pdf = PDF::loadview('invoice', ['invoice' => $invoice]);
+        return $pdf->download('invoices');
+    }
 
     public function cetakinv(Request $request)
     {
@@ -32,7 +46,8 @@ class POSController extends Controller
         // $id_marketing = $request->post('id_marketing');
 
         //send to post table
-        $posdb = new POSModel;
+        $posdb = new \App\Models\POSModel();
+
 
         $posdb->id_payment = $request->tipebayar;
         if ($request->id_payment == 2 || $request->id_payment ==  3) {
